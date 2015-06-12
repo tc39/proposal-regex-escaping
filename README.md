@@ -35,6 +35,10 @@ alert(ourLongText.replace(new RegExp(str, "g")); // handles reg exp special toke
 
 There is initial previous work here: https://gist.github.com/kangax/9698100 which includes valuable work we've used. Unlike that proposal this one uses the spec's `SyntaxCharacter` list of characters so updates are in sync with the specificaiton instead of specifying the characters escaped manually.
 
+##Cross-Cutting Concerns
+
+The list of escaped identifiers should be kept in sync with what the regular expressions grammar considers to be syntax characters that need escaping - for this reason instead of hard-coding the list of escaped characters we escape characters that are recognized as a `SyntaxCharacter`s by the engine. For example, if regex comments are ever added to the specification (presumably under a flag) - this ensures they are properly escaped.
+
 ##FAQ
 
 ##Semantics
