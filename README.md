@@ -50,7 +50,7 @@ When the **escape** function is called with an argument _S_ the following steps 
 5. For each code point **c** in **cpList** in List order, do:
  1. If **c** is a [SyntaxCharacter](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-patterns) then do:
    1. Append **"\"** to **cuList**.
- 2. Append **c** to  **cpList**.
+ 2. Append **c** to  **cuList**.
 6. Let **L** be a String whose elements are, in order, the elements of **cuList**.
 7. Return **L**.
 
