@@ -46,7 +46,7 @@ When the **escape** function is called with an argument _S_ the following steps 
 1. let **str** be [ToString](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring)(S).
 2. [ReturnIfAbrupt](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-returnifabrupt)(str).
 3. Let **cpList** be a [List](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-list-and-record-specification-type) containing in order the code points as defined in [6.1.4](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-language-types-string-type) of **str**, starting at the first element of **str**.
-4. let **cuList** be a new [List](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-list-and-record-specification-type)
+4. let **cuList** be a new [List](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-list-and-record-specification-type).
 5. For each code point **c** in **cpList** in List order, do:
  1. If **c** is a [SyntaxCharacter](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-patterns) then do:
    1. Append **"\"** to **cuList**.
