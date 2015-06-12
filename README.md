@@ -55,3 +55,10 @@ When the **escape** function is called with an argument _S_ the following steps 
 7. Return **L**.
 
 ##Usage Examples
+
+```js
+RegExp.escape("The Quick Brown Fox"); // "The Quick Brown Fox"
+RegExp.escape("Buy it. use it. break it. fix it.") // "Buy it\. use it\. break it\. fix it\."
+RegExp.escape("(*.*)"); // "\(\*\.\*\)"
+RegExp.escape("｡^･ｪ･^｡") // "｡\^･ｪ･\^｡"
+```
