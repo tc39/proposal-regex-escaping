@@ -8,7 +8,7 @@ This proposal is a [stage 0 (strawman) proposal](https://docs.google.com/documen
 
 ## Motivation
 
-See [this issue](https://esdiscuss.org/topic/regexp-escape). It is often the case when we want to build a regular expression out of a string without treating special charactars from the string as special regular expression tokens. For example if we want to replace all occurances of the the string `Hello.` which we got from the user we might be tempted to do `ourLongText.replace(new RegExp(text, "g"))` but this would match `.` against any character rather than a dot.
+See [this issue](https://esdiscuss.org/topic/regexp-escape). It is often the case when we want to build a regular expression out of a string without treating special characters from the string as special regular expression tokens. For example if we want to replace all occurrences of the the string `Hello.` which we got from the user we might be tempted to do `ourLongText.replace(new RegExp(text, "g"))` but this would match `.` against any character rather than a dot.
 
 This is a fairly common use in regular expressions and standardizing it would be useful. 
 
