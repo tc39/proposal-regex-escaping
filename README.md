@@ -61,4 +61,5 @@ RegExp.escape("The Quick Brown Fox"); // "The Quick Brown Fox"
 RegExp.escape("Buy it. use it. break it. fix it.") // "Buy it\. use it\. break it\. fix it\."
 RegExp.escape("(*.*)"); // "\(\*\.\*\)"
 RegExp.escape("｡^･ｪ･^｡") // "｡\^･ｪ･\^｡"
+RegExp.escape("😊 *_* +_+ ... 👍"); // "😊 \*_\* \+_\+ \.\.\. 👍"
 ```
