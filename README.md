@@ -33,7 +33,7 @@ str = RegExp.escape(str);
 alert(ourLongText.replace(new RegExp(str, "g")); // handles reg exp special tokens with the replacement.
 ```
 
-There is initial previous work here: https://gist.github.com/kangax/9698100 we'll base our proposal on top of that one. 
+There is initial previous work here: https://gist.github.com/kangax/9698100 which includes valuable work we've used. Unlike that proposal this one uses the spec's `SyntaxCharacter` list of characters so updates are in sync with the specificaiton instead of specifying the characters escaped manually.
 
 ##FAQ
 
