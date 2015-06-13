@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>RegExp.escape</title>
+<link rel="stylesheet" href="https://bterlson.github.io/ecmarkup/elements.css">
+
+<emu-clause id="regexp-escape">
+  <h1>RegExp.escape ( S ) </h1>
+
+  <p>`escape` takes a string S and returns a version of it with all control characters escaped. It escapes characters that would otherwise be treated by the regular expressions engine as special meta characters such as `^ $ \ . * + ? ( ) [ ] { } |` using an escape sequence character.</p>
+  
+
+  <p>When the `escape` function is called with an argument _S_ the following steps are taken:</p>
+
+  <emu-alg>
+    1. Let _str_ be ToString(_S_).
+    1. ReturnIfAbrupt(_str_).
+    1. Let _cpList_ be a List containing in order the code points as defined in 6.1.4 of _str_, starting at the first element of _str_.
+    1. Let _cuList_ be a new List
+    1. For each code point _c_ in _cpList_ in List order, do:
+      1. If _c_ is a SyntaxCharacter then do:
+        1. Append *\* to _cuList_.
+      1. Append _c_ to _cuList_.
+    1. Let _L_ be a String whose elements are, in order, the elements of _cuList_. 
+    1. Return _L_.
+  </emu-alg>
+
+  <p>The `length` property of the `escape` method is *1*.</p>
+
+</emu-clause>
