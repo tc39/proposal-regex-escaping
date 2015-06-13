@@ -1,6 +1,6 @@
 # `RexExp.escape` Proposal
 
-Proposal for adding a `RegExp.escape` method to the ECMAScript standard.
+Proposal for adding a `RegExp.escape` method to the ECMAScript standard http://benjamingr.github.io/RexExp.escape/.
 
 ## Status
 
