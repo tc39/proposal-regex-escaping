@@ -1,0 +1,36 @@
+<!doctype html>
+<head><meta charset="utf-8">
+<title>RegExp.escape</title>
+<link rel="stylesheet" href="https://bterlson.github.io/ecmarkup/elements.css">
+
+</head><body><div><h2>Table of Contents</h2><ol class="toc"><li><a href="#regexp-escape"><span class="secnum">1</span> RegExp.escape ( S )</a></li></ol></div><emu-clause id="regexp-escape">
+  <h1><span class="secnum">1</span>RegExp.escape ( S ) </h1>
+
+  <p><code>escape</code> takes a string S and returns a version of it with all control characters escaped. It escapes characters that would otherwise be treated by the regular expressions engine as special meta characters such as <code>^ $ \ . * + ? ( ) [ ] { } |</code> using an escape sequence character.</p>
+  
+
+  <p>When the <code>escape</code> function is called with an argument <var>S</var> the following steps are taken:</p>
+
+  <emu-alg><ol>
+  <li>Let <var>str</var> be <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring">ToString</a>(<var>S</var>).</li>
+  <li><a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-returnifabrupt">ReturnIfAbrupt</a>(<var>str</var>).</li>
+  <li>Let <var>cpList</var> be a List containing in order the code points as defined in 6.1.4 of <var>str</var>, starting at the first element of <var>str</var>.</li>
+  <li>Let <var>cuList</var> be a new List</li>
+  <li>For each code point <var>c</var> in <var>cpList</var> in List order, do:
+    <ol>
+      <li>If <var>c</var> is a SyntaxCharacter then do:
+        <ol>
+          <li>Append <emu-val>\</emu-val> to <var>cuList</var>.</li>
+        </ol>
+      </li>
+      <li>Append <var>c</var> to <var>cuList</var>.</li>
+    </ol>
+  </li>
+  <li>Let <var>L</var> be a String whose elements are, in order, the elements of <var>cuList</var>. </li>
+  <li>Return <var>L</var>.</li>
+</ol></emu-alg>
+
+  <p>The <code>length</code> property of the <code>escape</code> method is <emu-val>1</emu-val>.</p>
+
+</emu-clause>
+</body>
