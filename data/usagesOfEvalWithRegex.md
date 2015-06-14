@@ -11,6 +11,8 @@ Strategy:
 Websites
 ------
 
+Minifiers: No minifiers (uglify, closure compiler, jsmin, jscompress) break the pattern `var re = eval("/"+pattern+"/")` so it is safe to search for it the same was as on normal sites.
+
 NPM 
 --------
 
