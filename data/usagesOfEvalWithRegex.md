@@ -13,11 +13,7 @@ Websites
 
 Minifiers: No minifiers (uglify, closure compiler, jsmin, jscompress) break the pattern `var re = eval("/"+pattern+"/")` so it is safe to search for it the same was as on normal sites.
 
-Plan:
- - Get 1M Alexa CSV
- - use `wget -r -k --level 2 -np -nv -R jpg,jpeg,gif,png,tif <url>` on each site
- - read script tags from HTML with cheerio, read .js files
- - for each file - perform the same pattern serach performed for NPM
+Use http://nerdydata.com/
 
 NPM 
 --------
