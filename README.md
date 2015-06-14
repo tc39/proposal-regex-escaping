@@ -66,4 +66,5 @@ RegExp.escape("Buy it. use it. break it. fix it.") // "Buy it\. use it\. break i
 RegExp.escape("(*.*)"); // "\(\*\.\*\)"
 RegExp.escape("｡^･ｪ･^｡") // "｡\^･ｪ･\^｡"
 RegExp.escape("😊 *_* +_+ ... 👍"); // "😊 \*_\* \+_\+ \.\.\. 👍"
+RegExp.escape("\d \D (?:)"); // "\\d \\D \(\?\:\)"
 ```
