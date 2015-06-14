@@ -4,7 +4,7 @@ Strategy:
 --------
 
  - Search 100000 websites
- - Search NPM repositories
+ - ---Search NPM repositories---
  - Search GitHub Code with repo search
  
 Websites
@@ -12,6 +12,10 @@ Websites
 
 NPM 
 --------
+
+Top repositories from 'most dependent on' and 'most stars' NPM downloaded ([list of repositories](https://github.com/benjamingr/RexExp.escape/blob/master/data/raw/npm/scanned-repos.txt)). Then each repository was cloned via `git clone` and scanned for files with `eval` ([script here](https://github.com/benjamingr/RexExp.escape/blob/master/data/raw/download-files-with-eval-from-npm-10k.js)). Then each file containing `eval` eas processed again for checking that it indeed evaling a regular expression and not a string ([script here](https://github.com/benjamingr/RexExp.escape/blob/master/data/raw/search-downloaded-files-for-abuser.js)).
+
+Not a single repository from the most dependent on or most starred in NPM contained a regular expression with `"/"`.
 
 GitHub
 --------
