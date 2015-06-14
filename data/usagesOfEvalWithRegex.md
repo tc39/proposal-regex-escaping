@@ -1,5 +1,21 @@
 This file is an ongoing effort to find usages of regex in `eval`s in order to establish whether or not this proposal should address this and escape `"/"` or not.
 
+Strategy:
+--------
+
+ - Search 100000 websites
+ - Search NPM repositories
+ - Search GitHub Code with repo search
+ 
+Websites
+------
+
+NPM 
+--------
+
+GitHub
+--------
+Methodology: top 100 page results for searching for "regex eval" "eval" and "eval re" combined.
 
 Repositories:
 
