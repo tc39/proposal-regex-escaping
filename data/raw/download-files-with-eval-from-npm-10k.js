@@ -1,0 +1,46 @@
+"use strict";
+var Promise = require("bluebird");
+var request = Promise.promisify(require("request"));
+var cheerio = require("cheerio");
+var glob = Promise.promisify(require("glob"));
+var fs = Promise.promisifyAll(require("fs"));
+var exec = Promise.promisify(require("child_process").exec);
+
+var mostDependent = JSON.parse(fs.readFileSync("most-depended-packages-npm.json"));
+
+Promise.map(mostDependent.slice(1, 5), function(name){
+	var folder = null;
+	console.log("Checking for ", name);
+	return exec("npm info " + name).then(function(data){
+		console.log("got data for ", name);
+		return {name: name, url: eval("("+data.join("")+")").repository.url };
+	}).then(function(repoPair){
+		console.log("Cloning ", name);
+		var url = repoPair.url.replace("git+https","https");
+		return exec("git clone " + url).return(repoPair);
+	}).then(function(pair){
+		folder = pair.url.split("/").pop().replace(".git","");
+		console.log("Cloned repo" + name + " walking " + folder);
+		return exec("find ./" + folder +"/ | grep [.]js$");
+	}).then(function(fileNames){
+		if(fileNames.length === 0) return [];
+		return fileNames[0].split("\n").filter(Boolean);
+	}).map(function(file){
+		return Promise.props({
+			data: fs.readFileAsync(file),
+			name: file
+		});
+	}).map(function(info){
+		var asString = info.data.toString();
+		if(asString.indexOf("eval") >= 0){
+			console.log("found eval at file", info.name);
+			var fname = info.name.replace(/[.]/,"-").replace(/\//g, ".");
+			return fs.writeFileAsync("filesWithEval/f"+name+"-"+fname+".js", asString);
+		}
+	}).then(function(){
+		console.log("Deleting repo " + name);
+		return exec("rm -rf ./" + folder +"");
+	}).return(undefined);
+}, {concurrency: 16}).then(function(res){
+	console.log(res);
+});
