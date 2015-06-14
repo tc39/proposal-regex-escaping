@@ -1,0 +1,94 @@
+[
+   {
+      "title":"pauljpemberton/ScriptRaidercontentscript.js",
+      "codes":[
+         "var regexEval = /eval/gi;\t//Regular expression to find eval tags"
+      ]
+   },
+   {
+      "title":"pauljpemberton/comp116-ppembertoncontentscript.js",
+      "codes":[
+         "var regexEval = /eval/gi;\t//Regular expression to find eval tags"
+      ]
+   },
+   {
+      "title":"teamdstn/dstnationconstants.js",
+      "codes":[
+         "var IS_IE                   = eval(\"/*@cc_on!@*/false\");"
+      ]
+   },
+   {
+      "title":"cymen/node-stack-trace-parserparser.js",
+      "codes":[
+         "var evalRegex = /at .*\\.eval/;"
+      ]
+   },
+   {
+      "title":"bluefirex/expression-tidesdkreplace.js",
+      "codes":[
+         "\t\teval('text = text.replace(/'+regex+'/g, \\''+replacement+'\\');');"
+      ]
+   },
+   {
+      "title":"HardSkript/master_my.js",
+      "codes":[
+         "\t\tresult = eval('val.match(/'+_regex+'/g)');"
+      ]
+   },
+   {
+      "title":"wwoods/seriousjsfunctionCalls.sjs",
+      "codes":[
+         "    assert.throws -> sjs.eval \"\"\"/hey/ 5\"\"\""
+      ]
+   },
+   {
+      "title":"gaetanV/symfony_angularmultiPattern.directive.js",
+      "codes":[
+         "               attrs = !(/[^,:{}\\[\\]0-9.\\-+Eaeflnr-u \\n\\r\\t]/.test(attrs.multiPattern.replace(/\"(\\\\.|[^\"\\\\])*\"/g, ''))) && eval('(' + attrs.multiPattern + ')');"
+      ]
+   },
+   {
+      "title":"nanakochi123456/PyukiWikiDevelopmentEnvironmentshBrushDiff.js",
+      "codes":[
+         "eval(function(p,a,c,k,e,d){while(c--)if(k[c])p=p.replace(new RegExp('\\\\b'+c.toString(a)+'\\\\b','g'),k[c]);return p}('(b(){8(c)!=\"7\"?4=c(\"t\").4:5;b a(){r.q=[{3:/^\\\\+\\\\+\\\\+.*$/2,0:\"9\"},{3:/^\\\\-\\\\-\\\\-.*$/2,0:\"9\"},{3:/^\\\\s.*$/2,0:\"p\"},{3:/^@@.*@@$/2,0:\"o\"},{3:/^\\\\+[^\\\\+]{1}.*$/2,0:\"n\"},{3:/^\\\\-[^\\\\-]{1}.*$/2,0:\"m\"}]}a.l=k 4.j();a.i=[\"h\",\"g\"];4.f.e=a;8(6)!=\"7\"?6.d=a:5})();',30,30,'css||gm|regex|SyntaxHighlighter|null|exports|undefined|typeof|color2||function|require|Brush|Diff|brushes|patch|diff|aliases|Highlighter|new|prototype|comments|string|variable|color1|regexList|this||shCore'.split('|')))"
+      ]
+   },
+   {
+      "title":"asmblah/Crane.jst.js",
+      "codes":[
+         "\t\t\t\t\t\t//Simple eval."
+      ]
+   },
+   {
+      "title":"DoubleDoorDevelopment/D3Backendmode-makefile.js",
+      "codes":[
+         "    var r = e(\"../lib/oop\"), i = e(\"./text_highlight_rules\").TextHighlightRules, s = t.reservedKeywords = \"!|{|}|case|do|done|elif|else|esac|fi|for|if|in|then|until|while|&|;|export|local|read|typeset|unset|elif|select|set\", o = t.languageConstructs = \"[|]|alias|bg|bind|break|builtin|cd|command|compgen|complete|continue|dirs|disown|echo|enable|eval|exec|exit|fc|fg|getopts|hash|help|history|jobs|kill|let|logout|popd|printf|pushd|pwd|return|set|shift|shopt|source|suspend|test|times|trap|type|ulimit|umask|unalias|wait\", u = function ()"
+      ]
+   },
+   {
+      "title":"MarcoBevilacqua/tiatermode-makefile.js",
+      "codes":[
+         "    var r = e(\"../lib/oop\"), i = e(\"./text_highlight_rules\").TextHighlightRules, s = t.reservedKeywords = \"!|{|}|case|do|done|elif|else|esac|fi|for|if|in|then|until|while|&|;|export|local|read|typeset|unset|elif|select|set\", o = t.languageConstructs = \"[|]|alias|bg|bind|break|builtin|cd|command|compgen|complete|continue|dirs|disown|echo|enable|eval|exec|exit|fc|fg|getopts|hash|help|history|jobs|kill|let|logout|popd|printf|pushd|pwd|return|set|shift|shopt|source|suspend|test|times|trap|type|ulimit|umask|unalias|wait\", u = function () {"
+      ]
+   },
+   {
+      "title":"aulizko/Alan-Point-JavaScript-LibrarytemplateEngine.js",
+      "codes":[
+         "                evalRegex = /%eval\\s+([\\w\\s\\.%=\\!\\[\\]']+)/,",
+         "            } else if (evalRegex.test(instruction)) { // eval instruction"
+      ]
+   },
+   {
+      "title":"regexp-lin/2013_2014lexer.js",
+      "codes":[
+         "                rule.regex = eval(rule.regex.toString().replace(/^\\//,'/^'));"
+      ]
+   },
+   {
+      "title":"Zizwar/winoscriptwino.js",
+      "codes":[
+         "\teval('var WReg = /('+VarRegex+')\\\\s*/g');",
+         "\teval('var WReg = /('+FuncRegex+')\\\\s*\\\\(/g');"
+      ]
+   }
+]
