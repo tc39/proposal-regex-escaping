@@ -53,7 +53,7 @@ When the **escape** function is called with an argument _S_ the following steps 
 4. Let *cuList* be a new [List](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-list-and-record-specification-type).
 5. For each code point *c* in *cpList* in List order, do:
  1. If **c** is matched by [*SyntaxCharacter*](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-patterns) then do:
-   1. Append code unit 0x002F (SOLIDUS) to *cuList*.
+   1. Append code unit 0x005C (REVERSE SOLIDUS) to *cuList*.
  2. Append the elements of the UTF16Encoding (10.1.1) of *c* to *cuList*.
 6. Let **L** be a String whose elements are, in order, the elements of *cuList*.
 7. Return **L**.
