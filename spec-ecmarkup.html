@@ -18,7 +18,7 @@
     1. Let _cuList_ be a new List
     1. For each code point _c_ in _cpList_ in List order, do:
       1. If _c_ is a SyntaxCharacter then do:
-        1. Append code unit 0x002F (SOLIDUS) to cuList.
+        1. Append code unit 0x005C (REVERSE SOLIDUS) to cuList.
       1. Append the elements of the UTF16Encoding (10.1.1) of c to cuList.
     1. Let _L_ be a String whose elements are, in order, the elements of _cuList_. 
     1. Return _L_.
