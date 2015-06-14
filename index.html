@@ -20,10 +20,10 @@
     <ol>
       <li>If <var>c</var> is a SyntaxCharacter then do:
         <ol>
-          <li>Append <emu-val>\</emu-val> to <var>cuList</var>.</li>
+          <li>Append code unit 0x002F (SOLIDUS) to cuList.</li>
         </ol>
       </li>
-      <li>Append <var>c</var> to <var>cuList</var>.</li>
+      <li>Append the elements of the UTF16Encoding (10.1.1) of c to cuList.</li>
     </ol>
   </li>
   <li>Let <var>L</var> be a String whose elements are, in order, the elements of <var>cuList</var>. </li>
