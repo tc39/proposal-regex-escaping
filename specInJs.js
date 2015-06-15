@@ -12,7 +12,7 @@ RegExp.escape = (S) => {
   // 5. For each code point c in cpList in List order, do:
   for(let c of cpList){
     // i. If c is a SyntaxCharacter then do:
-    if("^$\\.*+?()[]{}|".indexOf(c) !== -1){
+    if("^$/-\\.*+?()[]{}|".indexOf(c) !== -1){
       // a. Append "\" to cuList.
       cuList.push("\\");
     }
