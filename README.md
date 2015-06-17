@@ -41,6 +41,19 @@ The list of escaped identifiers should be kept in sync with what the regular exp
 
 ##FAQ
 
+ Q - What about `"/"`?
+ A - Empirical data has been collected (see the /data folder) from about a hundred thousand code bases (most popular sites, most popular packages, most depended on packages and Q&A sites) and it was found out that its use case (for `eval`) was not common enough to justify addition.
+ 
+ Q - Why not escape every character?
+ A - While it would help with future compatibility - It would make strings longer and would make it impossible to unify `RegExp.escape` with `EscapeRegExpString` (internal to the ES specification). 
+ 
+ Q - How is unicode handled?
+ A - This proposal deals with code points and not code units so further extensions and dealing with unicode is done.
+ 
+ Q - Why don't you do X?
+ A - If you believe there is a concern that was not addressed yet - please [open an issue](https://github.com/benjamingr/RexExp.escape/issues).
+ 
+ 
 ##Semantics
 
 ### RegExp.escape(S)
