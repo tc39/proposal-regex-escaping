@@ -10,9 +10,9 @@ This proposal is a [stage 0 (strawman) proposal](https://docs.google.com/documen
 
 See [this issue](https://esdiscuss.org/topic/regexp-escape). It is often the case when we want to build a regular expression out of a string without treating special characters from the string as special regular expression tokens. For example if we want to replace all occurrences of the the string `Hello.` which we got from the user we might be tempted to do `ourLongText.replace(new RegExp(text, "g"))` but this would match `.` against any character rather than a dot.
 
-This is a fairly common use in regular expressions and standardizing it would be useful. 
+This is a fairly common use in regular expressions and standardizing it would be useful.
 
-In other languages: 
+In other languages:
 
  - Perl: quotemeta(str) - see [the docs](http://perldoc.perl.org/functions/quotemeta.html)
  - PHP: preg_quote(str) - see [the docs](http://php.net/manual/en/function.preg-quote.php)
@@ -21,7 +21,7 @@ In other languages:
  - Java: Pattern.quote(str) - see [the docs](http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#quote(java.lang.String))
  - C#, VB.NET: Regex.Escape(str) - see [the docs](https://msdn.microsoft.com/en-us/library/system.text.regularexpressions.regex.escape.aspx)
 
-Note that the languages differ in what they do - (perl does something different from C#) but they all have the same goal. 
+Note that the languages differ in what they do - (perl does something different from C#) but they all have the same goal.
 
 ## Proposed Solution
 
@@ -43,20 +43,20 @@ The list of escaped identifiers should be kept in sync with what the regular exp
 
  Q - What about `"/"`?
  A - Empirical data has been collected (see the /data folder) from about a hundred thousand code bases (most popular sites, most popular packages, most depended on packages and Q&A sites) and it was found out that its use case (for `eval`) was not common enough to justify addition.
- 
+
  Q - Why not escape every character?
- A - While it would help with future compatibility - It would make strings longer and would make it impossible to unify `RegExp.escape` with `EscapeRegExpString` (internal to the ES specification). 
- 
+ A - While it would help with future compatibility - It would make strings longer and would make it impossible to unify `RegExp.escape` with `EscapeRegExpString` (internal to the ES specification).
+
  Q - How is unicode handled?
  A - This proposal deals with code points and not code units so further extensions and dealing with unicode is done.
- 
+
  Q - Why don't you do X?
  A - If you believe there is a concern that was not addressed yet - please [open an issue](https://github.com/benjamingr/RexExp.escape/issues).
- 
+
 Q - What about `unescape`?
 
 A - While some other languages provide an unescape method we choose to defer discussion about it to a later point, mainly because no evidence of people asking for it has been found (while `.escape` is commonly asked for).
- 
+
 ## Semantics
 
 ### RegExp.escape(S)
