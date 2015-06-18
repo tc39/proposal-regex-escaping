@@ -16,10 +16,10 @@ In other languages:
 
  - Perl: quotemeta(str) - see [the docs](http://perldoc.perl.org/functions/quotemeta.html)
  - PHP: preg_quote(str) - see [the docs](http://php.net/manual/en/function.preg-quote.php)
- - Python: re.escape(str) - see [the docs](https://docs.python.org/2/library/re.html#re.escape)
+ - Python: re.escape(str) - see [the docs](https://docs.python.org/3/library/re.html#re.escape)
  - Ruby: Regexp.escape(str) - see [the docs](http://ruby-doc.org/core-2.2.0/Regexp.html#method-c-escape)
  - Java: Pattern.quote(str) - see [the docs](http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#quote(java.lang.String))
- - C#, VB.NET: Regex.Escape(str) - see [the docs](https://msdn.microsoft.com/en-us/library/system.text.regularexpressions.regex.escape(v=vs.110).aspx)
+ - C#, VB.NET: Regex.Escape(str) - see [the docs](https://msdn.microsoft.com/en-us/library/system.text.regularexpressions.regex.escape.aspx)
 
 Note that the languages differ in what they do - (perl does something different from C#) but they all have the same goal. 
 
