@@ -4,7 +4,7 @@ Proposal for adding a `RegExp.escape` method to the ECMAScript standard http://b
 
 ## Status
 
-This proposal is a [stage 0 (strawman) proposal](https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit#) and is awaiting specification, implementation and input.
+This proposal is a [stage 0 (strawman) proposal](https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit#) and is awaiting implementation and more input.
 
 ## Motivation
 
@@ -53,6 +53,8 @@ The list of escaped identifiers should be kept in sync with what the regular exp
  Q - Why don't you do X?
  A - If you believe there is a concern that was not addressed yet - please [open an issue](https://github.com/benjamingr/RexExp.escape/issues).
  
+Q - What about `unescape`?
+A - While some other languages provide an unescape method we choose to defer discussion about it to a later point, mainly because no evidence of people asking for it has been found (while .escape is commonly asked for).
  
 ##Semantics
 
