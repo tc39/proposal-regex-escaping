@@ -54,6 +54,7 @@ The list of escaped identifiers should be kept in sync with what the regular exp
  A - If you believe there is a concern that was not addressed yet - please [open an issue](https://github.com/benjamingr/RexExp.escape/issues).
  
 Q - What about `unescape`?
+
 A - While some other languages provide an unescape method we choose to defer discussion about it to a later point, mainly because no evidence of people asking for it has been found (while .escape is commonly asked for).
  
 ##Semantics
