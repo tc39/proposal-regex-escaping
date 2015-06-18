@@ -35,11 +35,11 @@ alert(ourLongText.replace(new RegExp(str, "g")); // handles reg exp special toke
 
 There is initial previous work here: https://gist.github.com/kangax/9698100 which includes valuable work we've used. Unlike that proposal this one uses the spec's `SyntaxCharacter` list of characters so updates are in sync with the specificaiton instead of specifying the characters escaped manually.
 
-##Cross-Cutting Concerns
+## Cross-Cutting Concerns
 
 The list of escaped identifiers should be kept in sync with what the regular expressions grammar considers to be syntax characters that need escaping - for this reason instead of hard-coding the list of escaped characters we escape characters that are recognized as a `SyntaxCharacter`s by the engine. For example, if regex comments are ever added to the specification (presumably under a flag) - this ensures they are properly escaped.
 
-##FAQ
+## FAQ
 
  Q - What about `"/"`?
  A - Empirical data has been collected (see the /data folder) from about a hundred thousand code bases (most popular sites, most popular packages, most depended on packages and Q&A sites) and it was found out that its use case (for `eval`) was not common enough to justify addition.
@@ -55,13 +55,13 @@ The list of escaped identifiers should be kept in sync with what the regular exp
  
 Q - What about `unescape`?
 
-A - While some other languages provide an unescape method we choose to defer discussion about it to a later point, mainly because no evidence of people asking for it has been found (while .escape is commonly asked for).
+A - While some other languages provide an unescape method we choose to defer discussion about it to a later point, mainly because no evidence of people asking for it has been found (while `.escape` is commonly asked for).
  
-##Semantics
+## Semantics
 
 ### RegExp.escape(S)
 
-When the **escape** function is called with an argument _S_ the following steps are taken:
+When the **escape** function is called with an argument *S* the following steps are taken:
 
 1. Let *str* be [ToString](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring)(*S*).
 2. [ReturnIfAbrupt](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-returnifabrupt)(*str*).
@@ -74,7 +74,7 @@ When the **escape** function is called with an argument _S_ the following steps 
 6. Let **L** be a String whose elements are, in order, the elements of *cuList*.
 7. Return **L**.
 
-##Usage Examples
+## Usage Examples
 
 ```js
 RegExp.escape("The Quick Brown Fox"); // "The Quick Brown Fox"
