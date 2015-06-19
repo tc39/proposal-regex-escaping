@@ -19,7 +19,7 @@ new RegExp('\n').source === "\\n"; // true, starting with ES5
 ```
 
 The specification notes that it uses EscapeRegulareExpression, but no actual specification can be found for the  implementation of EscapeRegulareExpression
-
+ 
     Let R be the this value.
     If Type(R) is not Object, throw a TypeError exception.
     If R does not have an [[OriginalSource]] internal slot, throw a TypeError exception.
