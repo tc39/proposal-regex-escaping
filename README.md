@@ -23,6 +23,8 @@ In other languages:
 
 Note that the languages differ in what they do - (perl does something different from C#) but they all have the same goal.
 
+We've had [a meeting about it](https://github.com/benjamingr/RegExp.escape/blob/master/data/other_languages/discussions.md) including a more detailed wrap up of what other languages do and the pros and cons.
+
 ## Proposed Solution
 
 We propose the addition of an `RegExp.escape` function, such that strings can be escaped in order to be used inside regular expressions:
