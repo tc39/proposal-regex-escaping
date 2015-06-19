@@ -12,7 +12,7 @@ console.log(regex.source); // "fooBar", doesn't contain /.../ and "ig".
 ```
 
 The source function changed implementation between es3 and es5. 
-In es5 it uses EscapeRegExpPattern under the covers to escase the source of the regexp, so:
+In es5 it uses EscapeRegExpPattern under the covers to escape the source of the regexp, so:
 ```js
 new RegExp('\n').source === "\n";  // true, prior to ES5
 new RegExp('\n').source === "\\n"; // true, starting with ES5
