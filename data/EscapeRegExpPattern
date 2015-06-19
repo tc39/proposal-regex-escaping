@@ -1,0 +1,16 @@
+
+
+ECMA 2015 specifies usage of EscapeRegExpPattern (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-escaperegexppattern)
+It's being used in RegExp.prototype.source (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-get-regexp.prototype.source)
+
+The RegExp.prototype.source returns only the text of the regular expression: (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/source)
+
+so:
+var regex = /fooBar/ig;
+
+console.log(regex.source); // "fooBar", doesn't contain /.../ and "ig".
+
+
+The source function changed implementation between es3 and es5. in es5 it uses EscapeRegExpPattern under the covers to escapse the source of the regexp so:
+new RegExp('\n').source === "\n";  // true, prior to ES5
+new RegExp('\n').source === "\\n"; // true, starting with ES5
