@@ -18,7 +18,7 @@ new RegExp('\n').source === "\n";  // true, prior to ES5
 new RegExp('\n').source === "\\n"; // true, starting with ES5
 ```
 
-The specification notes that it uses EscapeRegulareExpression, but no actual specification can be found for the actual implementation of EscapeRegulareExpression
+The specification notes that it uses EscapeRegulareExpression, but no actual specification can be found for the  implementation of EscapeRegulareExpression
 
     Let R be the this value.
     If Type(R) is not Object, throw a TypeError exception.
