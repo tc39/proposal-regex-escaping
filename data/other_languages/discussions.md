@@ -42,6 +42,8 @@ Here is the bug: https://bugs.python.org/issue2650
 
 There is a Python bug in 2.7.6, escaping `u"💩"` returns `u'\\\ud83d\\\udca9'` that is, it escaped each code point instead of code units. In 2.7.2 it errors http://repl.it/tRB
 
+(Update, Martijn Pieters pointed this out http://chat.stackoverflow.com/transcript/message/23987063#23987063 ) 
+
 ## Ruby
 
 > Escapes any characters that would have special meaning in a regular expression. Returns a new escaped string, or self if no characters are escaped. For any string, Regexp.new(Regexp.escape(str))=~str will be true.
