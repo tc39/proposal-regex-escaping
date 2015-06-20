@@ -49,7 +49,7 @@ The list of escaped identifiers should be kept in sync with what the regular exp
 
 *   **Why not escape every character?**
 
-    While it would help with future compatibility - It would make strings longer and would make it impossible to unify `RegExp.escape` with `EscapeRegExpString` (internal to the ES specification).
+    Other languages that have done this regretted this choice because of the readability impact and string size. More imformation on why other languages have moved from this in the data folder under other_languages.
 
 *   **How is unicode handled?**
 
@@ -62,6 +62,11 @@ The list of escaped identifiers should be kept in sync with what the regular exp
 *   **What about `unescape`?**
 
     While some other languages provide an unescape method we choose to defer discussion about it to a later point, mainly because no evidence of people asking for it has been found (while `.escape` is commonly asked for).
+
+*   **What about EscapeRegExpString?**
+   
+    EscapeRegExpPattern (as the name implies) takes a pattern and escapes it so that it can be represented as a string. What `RegExp.escape` does is take a string and escapes it so it can be literally represented as a pattern. The two do not need to share an escaped set and we can't use one for the other. We're discussing renaming EscapeRegExpString in the spec in the future to avoid confusion for readers.
+
 
 ## Semantics
 
