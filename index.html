@@ -8,8 +8,8 @@
 
   <p><code>escape</code> takes a string S and returns a version of it with all control characters escaped. It escapes characters that would otherwise be treated by the regular expressions engine as special meta characters such as <code>^ $ \ . * + ? ( ) [ ] { } |</code> using an escape sequence character.</p>
   
-
   <p>When the <code>escape</code> function is called with an argument <var>S</var> the following steps are taken:</p>
+
 
   <emu-alg><ol>
   <li>Let <var>str</var> be <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring">ToString</a>(<var>S</var>).</li>
@@ -32,5 +32,8 @@
 
   <p>The <code>length</code> property of the <code>escape</code> method is <emu-val>1</emu-val>.</p>
 
+ <emu-note><span class="note">Note</span>
+    <p><code>escape</code> takes a string and escapes it so it can be literally represented as a pattern. In contrast EscapeRegExpPattern (as the name implies) takes a pattern and escapes it so that it can be represented as a string. While the two are related they do not share the same character escape set or perform similar actions.</p>
+  </emu-note>
 </emu-clause>
 </body>
