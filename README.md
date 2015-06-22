@@ -4,7 +4,7 @@ Proposal for adding a `RegExp.escape` method to the ECMAScript standard http://b
 
 ## Status
 
-This proposal is a [stage 0 (strawman) proposal](https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit#) and is awaiting implementation and more input.
+This proposal is a [stage 0 (strawman) proposal](https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit#) and is awaiting implementation and more input. Please see [the issues](https://github.com/benjamingr/RegExp.escape/issues) on how to get involved. 
 
 ## Motivation
 
