@@ -60,6 +60,10 @@ We've had [a meeting about this subject](https://github.com/benjamingr/RegExp.es
 
     Other languages that have done this regretted this choice because of the readability impact and string size. More imformation on why other languages have moved from this in the data folder under /other_languages.
 
+*   **Why is each escaped character escaped?**
+
+    See [the EscapedChars.md](https://github.com/benjamingr/RegExp.escape/blob/master/EscapedChars.md) file for a detailed per-character description.
+
 *   **What about the `/` character?**
 
     Empirical data has been collected (see the /data folder) from about a hundred thousand code bases (most popular sites, most popular packages, most depended on packages and Q&A sites) and it was found out that its use case (for `eval`) was not common enough to justify addition.
