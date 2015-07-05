@@ -29,7 +29,17 @@ in the ES2015 specification. The characters included in the list are the followi
 
 This proposal additionally escapes `-` for context sensitive inside-character-class matching, hex numeric literals (0-9a-f) at the start of the string in order to avoid hitting matching groups and lookahead/lookbehind control characters.
 
-TODO(benjamingr) add reasoning for "safe with extra set" characters here.
+|Character  | Why escape it?
+|-----------|--------------|
+| `-`       | This construct is needed to allow escaping inside character classes. `new RegExp("-")` is perfectly valid but we want to allow `new RegExp("[a"+RegExp.escape("-")+"b]")` in which the `-` needs to be taken literally (and not as a character range character.   |
+
+And __only at the start__ of strings: 
+
+|Character  | Why escape it?
+|-----------|--------------|
+| `0-9`     | So that in `new RegExp("(foo)\\1" + RegExp.escape(1))` the back reference will still treat the first group and not the 11th and the `1` will be taken literally - see [this issue](https://github.com/benjamingr/RegExp.escape/issues/17) for more details.   | 
+
+Note that if we ever introduce named capturing groups to a subclass of the default `RegExp` those would also need to escape those characters. On escaping hex digits see https://github.com/benjamingr/RegExp.escape/issues/29 . 
 
 ### Extended "Safe" Proposal
 
