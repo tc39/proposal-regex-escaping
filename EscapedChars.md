@@ -38,8 +38,9 @@ And __only at the start__ of strings:
 |Character  | Why escape it?
 |-----------|--------------|
 | `0-9`     | So that in `new RegExp("(foo)\\1" + RegExp.escape(1))` the back reference will still treat the first group and not the 11th and the `1` will be taken literally - see [this issue](https://github.com/benjamingr/RegExp.escape/issues/17) for more details.   | 
+| `0-9a-fA-F` | So that `new RegExp("\\u41" + RegExp.escape("B"))` will not match the letter "Л" (`\u041B`) but rather the sequence "AB", or more generally that a leading hexadecimal character may not continue a preceding escape sequence - see [this issue](https://github.com/benjamingr/RegExp.escape/issues/29) for more details.   | 
 
-Note that if we ever introduce named capturing groups to a subclass of the default `RegExp` those would also need to escape those characters. On escaping hex digits see https://github.com/benjamingr/RegExp.escape/issues/29 . 
+Note that if we ever introduce named capturing groups to a subclass of the default `RegExp` those would also need to escape those characters. 
 
 ### Extended "Safe" Proposal
 
