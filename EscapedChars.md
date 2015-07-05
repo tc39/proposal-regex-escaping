@@ -35,4 +35,7 @@ TODO(benjamingr) add reasoning for "safe with extra set" characters here.
 
 This proposal escapes a maximal set of characters and ensures compatibility with edge cases like passing the result to `eval`.
 
-TODO(benjamingr) add reasoning for "safe" characters here
+|Character  | Why escape it?
+|-----------|--------------|
+| `/`       | So that `eval("/"+RegExp.espace("/")+"/")` will produce as a valid regular expression. More generally so that regular expressions will be passable to `eval` if sent from elsewhere with `/`. Note that [data](https://github.com/benjamingr/RegExp.escape/tree/master/data) indicates this is not a common use case. |
+| [`WhiteSpace`](http://www.ecma-international.org/ecma-262/6.0/index.html#table-32) | So that `eval("/"+RegExp.espace("/")+"/")` will produce as a valid regular expression. More generally so that regular expressions will be passable to `eval` if sent from elsewhere with `/`. Note that [data](https://github.com/benjamingr/RegExp.escape/tree/master/data) indicates this is not a common use case. |
