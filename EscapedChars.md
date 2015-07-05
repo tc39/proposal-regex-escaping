@@ -9,20 +9,20 @@ in the ES2015 specification. The characters included in the list are the followi
 
 |Character  | Why escape it?
 |-----------|--------------|
-| `^`       | So that `new RegExp(RegExp.escape('^') + "a")` will match `"^a"` rather than the `^` being treated as a negation or start of sentencecontrol construct. | 
+| `^`       | So that `new RegExp(RegExp.escape('^') + "a")` will match `"^a"` rather than the `^` being treated as a negation or start of sentence control construct. | 
 | `$`       | So that `new RegExp("a" + RegExp.escape('$'))` will match `"a$"` rather than the `$` being treated as a end of sentence control construct. | 
 | `\`       | So that `new RegExp(RegExp.escape("\\"))` won't throw a type error and instead match `"\\"`, and more generally that `\` won't be treated as an escape control construct. |
 | `.`       | So that `new RegExp(RegExp.escape("."))` won't be matched against single characters like `"a"` but instead against an actual dot ("."), and more generally that `.` won't be treated as an "any character" control construct. |
 | `*`       | So that `new RegExp(RegExp.escape("*"))` won't throw a type error but instead match against an actual star ("*"), and more generally that `*` won't be treated as a "zero or more times" quantifier. |
 | `+`       | So that `new RegExp(RegExp.escape("+"))` won't throw a type error but instead match against an actual plus sign ("+"), and more generally that `+` won't be treated as a "one or more times" quantifier. |
-| `?`       | So that `new RegExp(RegExp.escape("?"))` won't throw a type error but instead match against an actual question mark sign ("?"), and more generally that `?` won't be treated as a "once or not at all" quantifier. |
+| `?`       | So that `new RegExp(RegExp.escape("?"))` won't throw a type error but instead match against an actual question mark sign ("?"), and more generally that `?` won't be treated as a "once or not at all" quantifier. Also that `new RegExp("("+RegExp.escape("?=")+")")` will match a literal question mark followed by an equals sign, instead of introducint a lookahead, and more generally that `?` won't make groups become assertions or non-capturing. |
 | `(`       | So that `new RegExp(RegExp.escape("("))` won't throw a type error but instead match against an actual opening parenthesis  ("("), and more generally that `(` won't be treated as a "start of a capturing group" logical operator. |
 | `)`       | So that `new RegExp(RegExp.escape(")"))` won't throw a type error but instead match against an actual closing parenthesis  (")"), and more generally that `(` won't be treated as a "end of a capturing group" logical operator. |
 | `[`       | So that `new RegExp(RegExp.escape("["))` won't throw a type error but instead match against an actual opening bracket ("["), and more generally that `[` won't be treated as a "start of a character class" construct. |
 | `]`       | This construct is needed to allow escaping inside character classes. `new RegExp("]")` is perfectly valid but we want to allow `new RegExp("["+RegExp.escape("]...")+"]")` in which the `]` needs to be taken literally (and not as the closing "end of character class" character.  |
 | `{`       | So that `new RegExp("a" + RegExp.escape("{1,2}"))` will not match `"aaa"`, and more generally that `{` is taken literally and not as a quantifier. | 
 | `}`       | So that `new RegExp("a" + RegExp.escape("{1,2}"))` will not match `"aaa"`, and more generally that `}` is taken literally and not as a quantifier. | 
-| `|`       | So that `|` will be treated literally and `new RegExp(Regxp.escape("a|b"))` will produce a string that matches `"a|b"` instead of the | being treated as a logical "or" operator. |
+| `|`       | So that `|` will be treated literally and `new RegExp(Regxp.escape("a|b"))` will produce a string that matches `"a|b"` instead of the `|` being treated as the alternative operator. |
 
 
 ### "Safe with extra escape set" Proposal.
@@ -31,7 +31,7 @@ This proposal additionally escapes `-` for context sensitive inside-character-cl
 
 |Character  | Why escape it?
 |-----------|--------------|
-| `-`       | This construct is needed to allow escaping inside character classes. `new RegExp("-")` is perfectly valid but we want to allow `new RegExp("[a"+RegExp.escape("-")+"b]")` in which the `-` needs to be taken literally (and not as a character range character.   |
+| `-`       | This construct is needed to allow escaping inside character classes. `new RegExp("-")` is perfectly valid but we want to allow `new RegExp("[a"+RegExp.escape("-")+"b]")` in which the `-` needs to be taken literally (and not as a character range character).   |
 
 And __only at the start__ of strings: 
 
@@ -47,5 +47,5 @@ This proposal escapes a maximal set of characters and ensures compatibility with
 
 |Character  | Why escape it?
 |-----------|--------------|
-| `/`       | So that `eval("/"+RegExp.espace("/")+"/")` will produce as a valid regular expression. More generally so that regular expressions will be passable to `eval` if sent from elsewhere with `/`. Note that [data](https://github.com/benjamingr/RegExp.escape/tree/master/data) indicates this is not a common use case. |
-| [`WhiteSpace`](http://www.ecma-international.org/ecma-262/6.0/index.html#table-32) | So that `eval("/"+RegExp.espace("/")+"/")` will produce as a valid regular expression. More generally so that regular expressions will be passable to `eval` if sent from elsewhere with `/`. Note that [data](https://github.com/benjamingr/RegExp.escape/tree/master/data) indicates this is not a common use case. |
+| `/`       | So that `eval("/"+RegExp.espace("/")+"/")` will produce a valid regular expression. More generally so that regular expressions will be passable to `eval` if sent from elsewhere with `/`. Note that [data](https://github.com/benjamingr/RegExp.escape/tree/master/data) indicates this is not a common use case. |
+| [`WhiteSpace`](http://www.ecma-international.org/ecma-262/6.0/index.html#table-32) | So that `eval("/"+RegExp.espace("\r\n")+"/")` will produce a valid regular expression. More generally so that regular expressions will be passable to `eval` if sent from elsewhere with `/`. Also improves readability of the `escape` output. See [this issue](https://github.com/benjamingr/RegExp.escape/issues/30) for more details. Note that [data](https://github.com/benjamingr/RegExp.escape/tree/master/data) indicates this is not a common use case. |
