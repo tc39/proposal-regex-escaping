@@ -1,7 +1,9 @@
 Meeting 19.06.2015 
 
 Uri Shaked
+
 Elad Katz
+
 Benjamin Gruenbaum
 
 ----------
