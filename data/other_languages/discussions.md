@@ -42,7 +42,7 @@ Here is the bug: https://bugs.python.org/issue2650
 
 **Python escapes all characters except ascii alphanumeric but they agree it was a poor choice**. In retrospect, they had to opt-out a character for more readability. See the issue for more discussion. https://hg.python.org/cpython/file/af793c7580f1/Lib/re.py#l242
 
-There is a Python bug in 2.7.6, escaping `u"💩"` returns `u'\\\ud83d\\\udca9'` that is, it escaped each code point instead of code units. In 2.7.2 it errors http://repl.it/tRB
+There is a Python bug in 2.7.6, escaping `u"💩"` returns `u'\\\ud83d\\\udca9'` that is, it escaped each UCS-2/UTF-16 code unit instead of the code point. In 2.7.2 it errors http://repl.it/tRB
 
 (Update, Martijn Pieters pointed this out http://chat.stackoverflow.com/transcript/message/23987063#23987063 ) 
 
