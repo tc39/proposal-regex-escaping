@@ -67,6 +67,10 @@ We've had [a meeting about this subject](https://github.com/benjamingr/RegExp.es
 *   **What about the `/` character?**
 
     Empirical data has been collected (see the /data folder) from about a hundred thousand code bases (most popular sites, most popular packages, most depended on packages and Q&A sites) and it was found out that its use case (for `eval`) was not common enough to justify addition.
+    
+*   **What about the `,` character?**
+
+The one obscure case where this could suggest a cause for escaping, avoiding a range for user-supplied numbers in `new RegExp('a{'+ RegExp.escape('3,5') + '}')`, does not lead to any clearly safer results with escaping, as doing so will cause the sequence `{3\,5}` to be treated as a literal (rather than say throwing with bad input that an application could recover from).
 
 *   **How is Unicode handled?**
 
