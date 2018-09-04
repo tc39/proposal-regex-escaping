@@ -17,12 +17,12 @@ in the ES2015 specification. The characters included in the list are the followi
 | `+`       | So that `new RegExp(RegExp.escape("+"))` won't throw a type error but instead match against an actual plus sign ("+"), and more generally that `+` won't be treated as a "one or more times" quantifier. |
 | `?`       | So that `new RegExp(RegExp.escape("?"))` won't throw a type error but instead match against an actual question mark sign ("?"), and more generally that `?` won't be treated as a "once or not at all" quantifier. Also that `new RegExp("("+RegExp.escape("?=")+")")` will match a literal question mark followed by an equals sign, instead of introducint a lookahead, and more generally that `?` won't make groups become assertions or non-capturing. |
 | `(`       | So that `new RegExp(RegExp.escape("("))` won't throw a type error but instead match against an actual opening parenthesis  ("("), and more generally that `(` won't be treated as a "start of a capturing group" logical operator. |
-| `)`       | So that `new RegExp(RegExp.escape(")"))` won't throw a type error but instead match against an actual closing parenthesis  (")"), and more generally that `(` won't be treated as a "end of a capturing group" logical operator. |
+| `)`       | So that `new RegExp(RegExp.escape(")"))` won't throw a type error but instead match against an actual closing parenthesis  (")"), and more generally that `)` won't be treated as a "end of a capturing group" logical operator. |
 | `[`       | So that `new RegExp(RegExp.escape("["))` won't throw a type error but instead match against an actual opening bracket ("["), and more generally that `[` won't be treated as a "start of a character class" construct. |
 | `]`       | This construct is needed to allow escaping inside character classes. `new RegExp("]")` is perfectly valid but we want to allow `new RegExp("["+RegExp.escape("]...")+"]")` in which the `]` needs to be taken literally (and not as the closing "end of character class" character.  |
 | `{`       | So that `new RegExp("a" + RegExp.escape("{1,2}"))` will not match `"aaa"`, and more generally that `{` is taken literally and not as a quantifier. | 
 | `}`       | So that `new RegExp("a" + RegExp.escape("{1,2}"))` will not match `"aaa"`, and more generally that `}` is taken literally and not as a quantifier. | 
-| `|`       | So that `|` will be treated literally and `new RegExp(Regxp.escape("a|b"))` will produce a string that matches `"a|b"` instead of the `|` being treated as the alternative operator. |
+| <code>&#124;</code>       | So that <code>&#124;</code> will be treated literally and <code>new RegExp(Regxp.escape("a&#124;b"))</code> will produce a string that matches <code>"a&#124;b"</code> instead of the <code>&#124;</code> being treated as the alternative operator. |
 
 
 ### "Safe with extra escape set" Proposal.
