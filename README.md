@@ -84,6 +84,15 @@ The one obscure case where this could suggest a cause for escaping, avoiding a r
 
     EscapeRegExpPattern (as the name implies) takes a pattern and escapes it so that it can be represented as a string. What `RegExp.escape` does is take a string and escapes it so it can be literally represented as a pattern. The two do not need to share an escaped set and we can't use one for the other. We're discussing renaming EscapeRegExpPattern in the spec in the future to avoid confusion for readers.
 
+*  **Why not `RegExp.tag` or another tagged template based proposal?**
+
+    During the last time this proposal was presented - an edge case was brought up where tagged templates were suggested as an alternative. We believe a simple function is a much better and simpler alternative to tagged templates here:
+      - Users have consistently been asking for `RegExp.escape` over the past 5 years - both in this repo and elsewhere. Packages providing this functionality are [very popular](https://www.npmjs.com/package/escape-regexp). For comparison there are no downloads and [zero issues or interest](https://github.com/benjamingr/RegExp.tag) when I initiated work on a tag proposal.
+      - When interviewing users regarding `RegExp.tag` when trying to get motivating use cases for the API - users spoken with were very confused because of the tagged templates. The feedback was negative enough and they found the API confusing and awkward enough for me to stop pursuing it.
+      - Virtually every other programming language offers `.escape` (see "in other languages") and made the trade-off to ship `.escape` eventhough most of these could have shipped a tagged template API (equivalent, per language).
+      - This proposal does not block effort on a tag proposal, the two proposals are not mutually exclusive and both APIs can eventually land.
+    See [this issue](https://github.com/benjamingr/RegExp.escape/issues/45) for discussion.
+    
 *   **Why don't you do X?**
 
     If you believe there is a concern that was not addressed yet, please [open an issue](https://github.com/benjamingr/RexExp.escape/issues).
