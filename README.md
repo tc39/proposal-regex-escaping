@@ -73,7 +73,7 @@ We've had [a meeting about this subject](https://github.com/benjamingr/RegExp.es
 
 *   **Why not escape every character?**
 
-    Other languages that have done this regretted this choice because of the readability impact and string size. More imformation on why other languages have moved from this in the data folder under /other_languages.
+    Other languages that have done this regretted this choice because of the readability impact and string size. More information on why other languages have moved from this in the data folder under /other_languages.
 
 *   **Why is each escaped character escaped?**
 
@@ -105,7 +105,7 @@ The one obscure case where this could suggest a cause for escaping, avoiding a r
     During the first time this proposal was presented - an edge case was brought up where tagged templates were suggested as an alternative. We believe a simple function is a much better and simpler alternative to tagged templates here:
       - Users have consistently been asking for `RegExp.escape` over the past 5 years - both in this repo and elsewhere. Packages providing this functionality are very popular (see [escape-string-regexp](https://www.npmjs.com/package/escape-string-regexp) and [escape-regexp](https://www.npmjs.com/package/escape-regexp)). For comparison there are no downloads and [zero issues or interest](https://github.com/benjamingr/RegExp.tag) when I initiated work on a tag proposal.
       - When interviewing users regarding `RegExp.tag` when trying to get motivating use cases for the API - users spoken with were very confused because of the tagged templates. The feedback was negative enough and they found the API confusing and awkward enough for me to stop pursuing it.
-      - Virtually every other programming language offers `.escape` (see "in other languages") and made the trade-off to ship `.escape` eventhough most of these could have shipped a tagged template API (equivalent, per language).
+      - Virtually every other programming language offers `.escape` (see "in other languages") and made the trade-off to ship `.escape` even though most of these could have shipped a tagged template API (equivalent, per language).
       - This proposal does not block effort on a tag proposal, the two proposals are not mutually exclusive and both APIs can eventually land.
     See [this issue](https://github.com/benjamingr/RegExp.escape/issues/45) for discussion.
 
