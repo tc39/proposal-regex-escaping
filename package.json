@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "proposal-regex-escaping",
+  "description": "Proposal for investigating RegExp escaping for the ECMAScript standard",
+  "scripts": {
+    "start": "npm run build-loose -- --watch",
+    "build": "npm run build-loose -- --strict",
+    "build-loose": "node -e 'fs.mkdirSync(\"build\", { recursive: true })' && ecmarkup --load-biblio @tc39/ecma262-biblio --verbose spec.emu build/index.html --lint-spec"
+  },
+  "homepage": "https://github.com/tc39/proposal-regex-escaping#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tc39/proposal-regex-escaping.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@tc39/ecma262-biblio": "^2.1.2632",
+    "ecmarkup": "^17.1.1"
+  },
+  "engines": {
+    "node": ">= 12"
+  }
+}
