@@ -8,7 +8,7 @@ This ECMAScript proposal seeks to investigate the problem area of escaping a str
 
 ## Status
 
-This proposal is a [stage 1 proposal](https://github.com/tc39/proposals/blob/master/stage-1-proposals.md) and is awaiting implementation and more input. Please see [the issues](https://github.com/tc39-transfer/proposal-regex-escaping/issues) to get involved.
+This proposal is a [stage 2 proposal](https://github.com/tc39/proposals) and is awaiting implementation and more input. Please see [the issues](https://github.com/tc39-transfer/proposal-regex-escaping/issues) to get involved.
 
 
 ## Motivation
