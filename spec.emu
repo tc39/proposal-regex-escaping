@@ -33,15 +33,15 @@ contributors: Jordan Harband
           1. Let _str_ be ? ToString(_S_).
           1. Let _cpList_ be a List containing in order the code points as defined in 6.1.4 of _str_, starting at the first element of _str_.
           1. Let _toEscape_ be a CharSet containing every character in the ASCII punctuators that need escaping.
-          1. Let _cuList_ be a new empty List.
+          1. Let _escapedList_ be a new empty List.
           1. For each code point _c_ in _cpList_, do
-            1. If _c_ is the first code point in _cpList_ and _c_ is a DecimalDigit, then
-              1. Append code unit 0x005C (REVERSE SOLIDUS) to cuList.
-              1. Append code unit 0x0078 (LATIN SMALL LETTER X) to cuList.
-            1. Else if _c_ is a CharSetElement of _toEscape_ or is WhiteSpace, then
-              1. Append code unit 0x005C (REVERSE SOLIDUS) to cuList.
-            1. Append the elements of the UTF16Encoding (10.1.1) of c to cuList.
-          1. Return CodePointsToString(_cuList_).
+            1. If _escapedList_ is empty and _c_ is a |DecimalDigit|, then
+              1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
+              1. Append code unit U+0078 (LATIN SMALL LETTER X) to _escapedList_.
+            1. Else if _c_ is a CharSetElement of _toEscape_ or is |WhiteSpace|, then
+              1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
+            1. Append the elements of UTF16EncodeCodePoint(_c_) to _escapedList_.
+          1. Return CodePointsToString(_escapedList_).
         </emu-alg>
 
         <emu-note>
