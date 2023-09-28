@@ -26,7 +26,7 @@ In both cases - **this means that RegExp.escape can't guarantee the length of th
 
 First of all - PHP is underspecified but the docs indicate that `. \ + * ? [ ^ ] $ ( ) { } = ! < > | : -` are escaped. 
 
-In addition to the current proposal, they esacpe `! < > : - =` which are context-sentitve parts. That is, they escape characters that might make parts of lookaheads, lookbehinds and ranges. 
+In addition to the current proposal, they escape `! < > : - =` which are context-sentitve parts. That is, they escape characters that might make parts of lookaheads, lookbehinds and ranges. 
 
 Out of these things, `! : -` seems relevant for the ES syntax and should be independently considered. There is current discussion about context sensitive identifiers in https://github.com/benjamingr/RegExp.escape/issues/17 . They also provide a flag for escaping `/` which we find a poor design choice.
 
