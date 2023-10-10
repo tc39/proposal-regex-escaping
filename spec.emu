@@ -38,6 +38,7 @@ contributors: Jordan Harband
             1. If _escapedList_ is empty and _c_ is a |DecimalDigit|, then
               1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
               1. Append code unit U+0078 (LATIN SMALL LETTER X) to _escapedList_.
+              1. Append code unit U+0033 (DIGIT THREE) to _escapedList_.
             1. Else if _c_ is a CharSetElement of _toEscape_ or is |WhiteSpace|, then
               1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
             1. Append the elements of UTF16EncodeCodePoint(_c_) to _escapedList_.
