@@ -3,12 +3,12 @@
 This ECMAScript proposal seeks to investigate the problem area of escaping a string for use inside a Regular Expression.
 
 <!--
-[Formal specification](http://tc39-transfer.github.io/proposal-regex-escaping)
+[Formal specification](http://tc39.github.io/proposal-regex-escaping)
 -->
 
 ## Status
 
-This proposal is a [stage 2 proposal](https://github.com/tc39/proposals) and is awaiting implementation and more input. Please see [the issues](https://github.com/tc39-transfer/proposal-regex-escaping/issues) to get involved.
+This proposal is a [stage 2 proposal](https://github.com/tc39/proposals) and is awaiting implementation and more input. Please see [the issues](https://github.com/tc39/proposal-regex-escaping/issues) to get involved.
 
 
 ## Motivation
@@ -18,11 +18,11 @@ It is often the case when we want to build a regular expression out of a string 
 This is commonly-desired functionality, as can be seen from [this years-old es-discuss thread](https://esdiscuss.org/topic/regexp-escape). Standardizing it would be very useful to developers, and avoid subpar implementations they might create that could miss edge cases.
 
 
-## Possible solutions:
+## Chosen solutions:
 
 ### `RegExp.escape` function
 
-This would be a `RegExp.escape` function, such that strings can be escaped in order to be used inside regular expressions:
+This would be a `RegExp.escape` static function, such that strings can be escaped in order to be used inside regular expressions:
 
 ```js
 const str = prompt("Please enter a string");
@@ -40,20 +40,23 @@ RegExp.escape("😊 *_* +_+ ... 👍"); // "😊 \*_\* \+_\+ \.\.\. 👍"
 RegExp.escape("\d \D (?:)"); // "\\d \\D \(\?\:\)"
 ```
 
+## Cross-cutting concerns
+
+Per https://gist.github.com/bakkot/5a22c8c13ce269f6da46c7f7e56d3c3f, we now escape anything that could possible cause a “context escape”.
+
+> This would be a commitment to only entering/exiting new contexts using whitespace or ASCII punctuators. That seems like it will not be a significant impediment to language evolution.
+
+## Other solutions considered:
+
 ### Template tag function
 
-This would be, for example, a template tag function `RegExp.tag`, used to produce a regular expression:
+This would be, for example, a template tag function `RegExp.tag`, used to produce a complete regular expression instead of potentially a piece of one:
 
 ```js
 const str = prompt("Please enter a string");
 const re = RegExp.tag`/${str}/g`;
 console.log(ourLongText.replace(re));
 ```
-
-## Cross-cutting concerns
-
-The list of escaped identifiers should be kept in sync with what the regular expression grammar considers to be syntax characters that need escaping. For this reason, instead of hard-coding the list of escaped characters, we escape characters that are recognized as `SyntaxCharacter`s by the engine. For example, if regexp comments are ever added to the specification (presumably under a flag), this ensures that they are properly escaped. Additionally, named capture groups must be accounted for.
-
 
 ## In other languages
 
@@ -71,21 +74,9 @@ We've had [a meeting about this subject](https://github.com/benjamingr/RegExp.es
 
 ## FAQ
 
-*   **Why not escape every character?**
-
-    Other languages that have done this regretted this choice because of the readability impact and string size. More information on why other languages have moved from this in the data folder under /other_languages.
-
 *   **Why is each escaped character escaped?**
 
-    See [the EscapedChars.md](https://github.com/benjamingr/RegExp.escape/blob/master/EscapedChars.md) file for a detailed per-character description.
-
-*   **What about the `/` character?**
-
-    Empirical data has been collected (see the /data folder) from about a hundred thousand code bases (most popular sites, most popular packages, most depended on packages and Q&A sites) and it was found out that its use case (for `eval`) was not common enough to justify addition.
-
-*   **What about the `,` character?**
-
-The one obscure case where this could suggest a cause for escaping, avoiding a range for user-supplied numbers in `new RegExp('a{'+ RegExp.escape('3,5') + '}')`, does not lead to any clearly safer results with escaping, as doing so will cause the sequence `{3\,5}` to be treated as a literal (rather than say throwing with bad input that an application could recover from).
+    See [https://gist.github.com/bakkot/5a22c8c13ce269f6da46c7f7e56d3c3f].
 
 *   **How is Unicode handled?**
 
@@ -95,21 +86,19 @@ The one obscure case where this could suggest a cause for escaping, avoiding a r
 
     While some other languages provide an unescape method we choose to defer discussion about it to a later point, mainly because no evidence of people asking for it has been found (while `RegExp.escape` is commonly asked for).
 
-*   **How does this relate to EscapeRegExpPattern?**
+*   **How does this relate to the EscapeRegExpPattern AO?**
 
     EscapeRegExpPattern (as the name implies) takes a pattern and escapes it so that it can be represented as a string. What `RegExp.escape` does is take a string and escapes it so it can be literally represented as a pattern. The two do not need to share an escaped set and we can't use one for the other. We're discussing renaming EscapeRegExpPattern in the spec in the future to avoid confusion for readers.
 
-<!--
 *  **Why not `RegExp.tag` or another tagged template based proposal?**
 
     During the first time this proposal was presented - an edge case was brought up where tagged templates were suggested as an alternative. We believe a simple function is a much better and simpler alternative to tagged templates here:
-      - Users have consistently been asking for `RegExp.escape` over the past 5 years - both in this repo and elsewhere. Packages providing this functionality are very popular (see [escape-string-regexp](https://www.npmjs.com/package/escape-string-regexp) and [escape-regexp](https://www.npmjs.com/package/escape-regexp)). For comparison there are no downloads and [zero issues or interest](https://github.com/benjamingr/RegExp.tag) when I initiated work on a tag proposal.
+      - Users have consistently been asking for `RegExp.escape` over the past 5 years - both in this repo and elsewhere. Packages providing this functionality are very popular (see [escape-string-regexp](https://www.npmjs.com/package/escape-string-regexp) and [escape-regexp](https://www.npmjs.com/package/escape-regexp)). For comparison there are no downloads and [virtually zero issues or interest](https://github.com/benjamingr/RegExp.tag) when I initiated work on a tag proposal.
       - When interviewing users regarding `RegExp.tag` when trying to get motivating use cases for the API - users spoken with were very confused because of the tagged templates. The feedback was negative enough and they found the API confusing and awkward enough for me to stop pursuing it.
       - Virtually every other programming language offers `.escape` (see "in other languages") and made the trade-off to ship `.escape` even though most of these could have shipped a tagged template API (equivalent, per language).
       - This proposal does not block effort on a tag proposal, the two proposals are not mutually exclusive and both APIs can eventually land.
-    See [this issue](https://github.com/benjamingr/RegExp.escape/issues/45) for discussion.
+    See [this issue](https://github.com/tc39/RegExp.escape/issues/45) for discussion.
 
--->
 *   **Why don't you do X?**
 
-    If you believe there is a concern that was not addressed yet, please [open an issue](https://github.com/benjamingr/RexExp.escape/issues).
+    If you believe there is a concern that was not addressed yet, please [open an issue](https://github.com/tc39/RexExp.escape/issues).
