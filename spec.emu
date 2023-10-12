@@ -15,6 +15,25 @@ contributors: Jordan Harband
   <emu-clause id="sec-regexp-regular-expression-objects" number="2">
     <h1>RegExp (Regular Expression) Objects</h1>
 
+    <emu-clause id="sec-patterns" number="1">
+      <h1>Patterns</h1>
+
+      <h2>Syntax</h2>
+      <p>Each `\\u` |HexTrailSurrogate| for which the choice of associated `u` |HexLeadSurrogate| is ambiguous shall be associated with the nearest possible `u` |HexLeadSurrogate| that would otherwise have no corresponding `\\u` |HexTrailSurrogate|.</p>
+      <emu-grammar type="definition">
+        HexNonSurrogate ::
+          Hex4Digits [> but only if the MV of |Hex4Digits| is not in the inclusive interval from 0xD800 to 0xDFFF]
+
+        IdentityEscape[UnicodeMode] ::
+          [+UnicodeMode] SyntaxCharacter
+          [+UnicodeMode] `/` <ins>`,` `-` `=` `<` `>` `/` `#` `&` `!` `%` `:` `;` `@` `~` `'` `"`</ins>
+          [~UnicodeMode] SourceCharacter but not UnicodeIDContinue
+
+        DecimalEscape ::
+          NonZeroDigit DecimalDigits[~Sep]? [lookahead &notin; DecimalDigit]
+      </emu-grammar>
+    </emu-clause>
+
     <emu-clause id="sec-properties-of-the-regexp-constructor" number="5">
       <h1>Properties of the RegExp Constructor</h1>
 
