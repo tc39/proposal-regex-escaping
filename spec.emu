@@ -44,21 +44,21 @@ contributors: Jordan Harband
         <p>It performs the following steps when called:</p>
         <p>
           The phrase "<dfn id="the ASCII punctuators that need escaping">the ASCII punctuators that need escaping</dfn>"
-          denotes the following String value, which consists of every ASCII punctuator except U+005F (LOW LINE):
+          denotes the following String, which consists of every ASCII punctuator except U+005F (LOW LINE):
           *"(){}[]|,.?\*+-^$=<>\/#&!%:;@~'"`"*.
         </p>
 
         <emu-alg>
           1. Let _str_ be ? ToString(_S_).
           1. Let _cpList_ be a List containing in order the code points as defined in 6.1.4 of _str_, starting at the first element of _str_.
-          1. Let _toEscape_ be a CharSet containing every character in the ASCII punctuators that need escaping.
+          1. Let _toEscape_ be StringToCodePoints(the ASCII punctuators that need escaping).
           1. Let _escapedList_ be a new empty List.
           1. For each code point _c_ in _cpList_, do
             1. If _escapedList_ is empty and _c_ is matched by |DecimalDigit|, then
               1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
               1. Append code unit U+0078 (LATIN SMALL LETTER X) to _escapedList_.
               1. Append code unit U+0033 (DIGIT THREE) to _escapedList_.
-            1. Else if _c_ is a CharSetElement of _toEscape_ or is matched by |WhiteSpace|, then
+            1. Else if _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
               1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
             1. Append the elements of UTF16EncodeCodePoint(_c_) to _escapedList_.
           1. Return CodePointsToString(_escapedList_).
