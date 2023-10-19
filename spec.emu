@@ -60,7 +60,7 @@ contributors: Jordan Harband
               1. Append code unit U+0033 (DIGIT THREE) to _escapedList_.
             1. Else if _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
               1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
-            1. Append the elements of UTF16EncodeCodePoint(_c_) to _escapedList_.
+            1. Append _c_ to _escapedList_.
           1. Return CodePointsToString(_escapedList_).
         </emu-alg>
 
