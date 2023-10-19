@@ -31,13 +31,14 @@ const re = new RegExp(escaped, 'g'); // handles reg exp special tokens with the 
 console.log(ourLongText.replace(re));
 ```
 
+Note the double backslashes in the example string contents, which render as a single backslash.
 ```js
-RegExp.escape("The Quick Brown Fox"); // "The Quick Brown Fox"
-RegExp.escape("Buy it. use it. break it. fix it.") // "Buy it\. use it\. break it\. fix it\."
-RegExp.escape("(*.*)"); // "\(\*\.\*\)"
-RegExp.escape("｡^･ｪ･^｡") // "｡\^･ｪ･\^｡"
-RegExp.escape("😊 *_* +_+ ... 👍"); // "😊 \*_\* \+_\+ \.\.\. 👍"
-RegExp.escape("\d \D (?:)"); // "\\d \\D \(\?\:\)"
+RegExp.escape("The Quick Brown Fox"); // "The\\ Quick\\ Brown\\ Fox"
+RegExp.escape("Buy it. use it. break it. fix it.") // "Buy\\ it\\.\\ use it\\.\\ break\\ it\\.\\ fix\\ it\\."
+RegExp.escape("(*.*)"); // "\\(\\*\\.\\*\\)"
+RegExp.escape("｡^･ｪ･^｡") // "｡\\^･ｪ･\\^｡"
+RegExp.escape("😊 *_* +_+ ... 👍"); // "😊\\ \\*_\\*\\ \\+_\\+\\ \\.\\.\\.\\ 👍"
+RegExp.escape("\\d \\D (?:)"); // "\\\\d \\\\D \\(\\?\\:\\)"
 ```
 
 ## Cross-cutting concerns
