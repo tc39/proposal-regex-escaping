@@ -50,7 +50,7 @@ contributors: Jordan Harband
 
         <emu-alg>
           1. Let _str_ be ? ToString(_S_).
-          1. Let _cpList_ be a List containing in order the code points as defined in 6.1.4 of _str_, starting at the first element of _str_.
+          1. Let _cpList_ be StringToCodePoints(_str_).
           1. Let _toEscape_ be StringToCodePoints(the ASCII punctuators that need escaping).
           1. Let _escapedList_ be a new empty List.
           1. For each code point _c_ in _cpList_, do
