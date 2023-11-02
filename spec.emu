@@ -27,6 +27,7 @@ contributors: Jordan Harband
         IdentityEscape[UnicodeMode] ::
           [+UnicodeMode] SyntaxCharacter
           [+UnicodeMode] `/` <ins>`,` `-` `=` `<` `>` `/` `#` `&` `!` `%` `:` `;` `@` `~` `'` `"`</ins>
+          <ins>[+UnicodeMode] WhiteSpace</ins>
           [~UnicodeMode] SourceCharacter but not UnicodeIDContinue
 
         DecimalEscape ::
