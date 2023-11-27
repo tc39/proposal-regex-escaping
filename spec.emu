@@ -26,7 +26,7 @@ contributors: Jordan Harband
 
         IdentityEscape[UnicodeMode] ::
           [+UnicodeMode] SyntaxCharacter
-          [+UnicodeMode] `/` <ins>`,` `-` `=` `<` `>` `/` `#` `&` `!` `%` `:` `;` `@` `~` `'` `"`</ins>
+          [+UnicodeMode] `/` <ins>`,` `-` `=` `<` `>` `#` `&` `!` `%` `:` `;` `@` `~` `'` `"` `\``</ins>
           <ins>[+UnicodeMode] WhiteSpace</ins>
           [~UnicodeMode] SourceCharacter but not UnicodeIDContinue
 
@@ -41,7 +41,7 @@ contributors: Jordan Harband
       <ins>
       <emu-clause id="sec-regexp.escape" number="2">
         <h1>RegExp.escape ( _S_ )</h1>
-        <p>This method takes a string and returns a version of it with all control characters escaped. It escapes characters that would otherwise be treated by the regular expressions engine as special meta characters using an escape sequence character.</p>
+        <p>This method takes a string and returns a similar string in which each character that is potentially special in a regular expression |Pattern| has been replaced by an escape sequence representing that character.</p>
         <p>It performs the following steps when called:</p>
         <p>
           The phrase "<dfn id="the ASCII punctuators that need escaping">the ASCII punctuators that need escaping</dfn>"
