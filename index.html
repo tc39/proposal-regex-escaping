@@ -355,6 +355,14 @@ function Menu() {
   this._pinnedIds = {};
   this.loadPinEntries();
 
+  // unpin all button
+  document
+    .querySelector('#menu-pins .unpin-all')
+    .addEventListener('click', this.unpinAll.bind(this));
+
+  // individual unpinning buttons
+  this.$pinList.addEventListener('click', this.pinListClick.bind(this));
+
   // toggle menu
   this.$toggle.addEventListener('click', this.toggle.bind(this));
 
@@ -404,8 +412,8 @@ Menu.prototype.documentKeydown = function (e) {
   e.stopPropagation();
   if (e.keyCode === 80) {
     this.togglePinEntry();
-  } else if (e.keyCode > 48 && e.keyCode < 58) {
-    this.selectPin(e.keyCode - 49);
+  } else if (e.keyCode >= 48 && e.keyCode < 58) {
+    this.selectPin((e.keyCode - 9) % 10);
   }
 };
 
@@ -567,6 +575,7 @@ Menu.prototype.addPinEntry = function (id) {
     return;
   }
 
+  let text;
   if (entry.type === 'clause') {
     let prefix;
     if (entry.number) {
@@ -575,10 +584,13 @@ Menu.prototype.addPinEntry = function (id) {
       prefix = '';
     }
     // prettier-ignore
-    this.$pinList.innerHTML += `<li><a href="${makeLinkToId(entry.id)}">${prefix}${entry.titleHTML}</a></li>`;
+    text = `${prefix}${entry.titleHTML}`;
   } else {
-    this.$pinList.innerHTML += `<li><a href="${makeLinkToId(entry.id)}">${getKey(entry)}</a></li>`;
+    text = getKey(entry);
   }
+
+  let link = `<a href="${makeLinkToId(entry.id)}">${text}</a>`;
+  this.$pinList.innerHTML += `<li data-section-id="${id}">${link}<button class="unpin">\u{2716}</button></li>`;
 
   if (Object.keys(this._pinnedIds).length === 0) {
     this.showPins();
@@ -588,7 +600,7 @@ Menu.prototype.addPinEntry = function (id) {
 };
 
 Menu.prototype.removePinEntry = function (id) {
-  let item = this.$pinList.querySelector(`a[href="${makeLinkToId(id)}"]`).parentNode;
+  let item = this.$pinList.querySelector(`li[data-section-id="${id}"]`);
   this.$pinList.removeChild(item);
   delete this._pinnedIds[id];
   if (Object.keys(this._pinnedIds).length === 0) {
@@ -596,6 +608,21 @@ Menu.prototype.removePinEntry = function (id) {
   }
 
   this.persistPinEntries();
+};
+
+Menu.prototype.unpinAll = function () {
+  for (let id of Object.keys(this._pinnedIds)) {
+    this.removePinEntry(id);
+  }
+};
+
+Menu.prototype.pinListClick = function (event) {
+  if (event?.target?.classList.contains('unpin')) {
+    let id = event.target.parentNode.dataset.sectionId;
+    if (id) {
+      this.removePinEntry(id);
+    }
+  }
 };
 
 Menu.prototype.persistPinEntries = function () {
@@ -2427,26 +2454,68 @@ tr.del > td {
   display: block;
 }
 
+#menu-pins .unpin-all {
+  border: none;
+  background: #ccc;
+  border-radius: 4px;
+  height: 18px;
+  font-size: 12px;
+  margin: 0 5px 0 10px;
+  font-family: IBM Plex Sans;
+}
+#menu-pins .unpin-all:hover {
+  background: #ddd;
+}
+
 #menu-pins-list {
   margin: 0;
   padding: 0;
   counter-reset: pins-counter;
 }
 
+#menu-pins-list > li {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  margin: 3px 1px;
+  border-radius: 4px;
+}
+
+#menu-pins-list > li > a {
+  flex-grow: 1;
+  align-self: center;
+}
+
+#menu-pins-list > li:before,
+#menu-pins-list > li > .unpin {
+  flex-shrink: 0;
+  flex-grow: 0;
+  text-align: center;
+  padding: 1px 3px;
+  border-radius: 4px;
+  background: none;
+  border: none;
+}
+#menu-pins-list > li:before,
+#menu-pins-list > li > .unpin:hover {
+  background: #ccc;
+}
+
+#menu-pins-list > li > .unpin,
+#menu-pins .unpin-all {
+  cursor: pointer;
+}
+#menu-pins-list > li > .unpin:hover,
+#menu-pins .unpin-all:hover {
+  color: #bb1212;
+}
+
 #menu-pins-list > li:before {
   content: counter(pins-counter);
   counter-increment: pins-counter;
-  display: inline-block;
-  width: 25px;
-  text-align: center;
-  border: 1px solid #bbb;
-  padding: 2px;
-  margin: 4px;
-  box-sizing: border-box;
-  line-height: 1em;
-  background-color: #ccc;
-  border-radius: 4px;
+  font-size: 16px;
 }
+
 #menu-toc > ol {
   padding: 0;
   flex-grow: 1;
@@ -2543,7 +2612,6 @@ tr.del > td {
   flex-grow: 0;
   flex-shrink: 0;
   font-size: 80%;
-  cursor: row-resize;
   user-select: none;
 }
 
@@ -2818,12 +2886,16 @@ li.menu-search-result-term:before {
   flex-direction: column;
 }
 
+#references-pane > .menu-pane-header {
+  cursor: row-resize;
+}
+
 #references-pane-container.active {
   display: flex;
 }
 
 #references-pane-close:after {
-  content: '✖';
+  content: '\2716';
   float: right;
   cursor: pointer;
 }
@@ -2906,10 +2978,12 @@ li.menu-search-result-term:before {
   <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
 
   <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to <i>n</i>th pin</span><code>1-9</code></li>
 </ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120">
       <title>Menu</title>
       <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
-    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins</div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-text-processing" title="Text Processing"><span class="secnum">22</span> Text Processing</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp-regular-expression-objects" title="RegExp (Regular Expression) Objects"><span class="secnum">22.2</span> RegExp (Regular Expression) Objects</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-patterns" title="Patterns"><span class="secnum">22.2.1</span> Patterns</a></li><li><span class="item-toggle">+</span><a href="#sec-properties-of-the-regexp-constructor" title="Properties of the RegExp Constructor"><span class="secnum">22.2.5</span> Properties of the RegExp Constructor</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regexp.escape" title="RegExp.escape ( S )"><span class="secnum">22.2.5.2</span> RegExp.escape ( <var>S</var> )</a></li></ol></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 2 Draft / November 2, 2023</h1><h1 class="title">RegExp.escape</h1>
+    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-text-processing" title="Text Processing"><span class="secnum">22</span> Text Processing</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp-regular-expression-objects" title="RegExp (Regular Expression) Objects"><span class="secnum">22.2</span> RegExp (Regular Expression) Objects</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-patterns" title="Patterns"><span class="secnum">22.2.1</span> Patterns</a></li><li><span class="item-toggle">+</span><a href="#sec-properties-of-the-regexp-constructor" title="Properties of the RegExp Constructor"><span class="secnum">22.2.5</span> Properties of the RegExp Constructor</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regexp.escape" title="RegExp.escape ( S )"><span class="secnum">22.2.5.2</span> RegExp.escape ( <var>S</var> )</a></li></ol></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 2 Draft / November 27, 2023</h1><h1 class="title">RegExp.escape</h1>
 
 <emu-clause id="sec-text-processing" number="22">
   <h1><span class="secnum">22</span> Text Processing</h1>
@@ -2932,14 +3006,13 @@ li.menu-search-result-term:before {
     <emu-nt params="UnicodeMode"><a href="#prod-IdentityEscape">IdentityEscape</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt> <emu-geq>::</emu-geq> <emu-rhs a="_sxoisew" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints>
         <emu-nt><a href="https://tc39.es/ecma262/#prod-SyntaxCharacter">SyntaxCharacter</a></emu-nt>
     </emu-rhs>
-    <emu-rhs a="sjw34yso" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints>
+    <emu-rhs a="6jpfhxum" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints>
         <emu-t>/</emu-t>
         <ins><emu-t>,</emu-t>
         <emu-t>-</emu-t>
         <emu-t>=</emu-t>
         <emu-t>&lt;</emu-t>
         <emu-t>&gt;</emu-t>
-        <emu-t>/</emu-t>
         <emu-t>#</emu-t>
         <emu-t>&amp;</emu-t>
         <emu-t>!</emu-t>
@@ -2949,7 +3022,8 @@ li.menu-search-result-term:before {
         <emu-t>@</emu-t>
         <emu-t>~</emu-t>
         <emu-t>'</emu-t>
-        <emu-t>"</emu-t></ins>
+        <emu-t>"</emu-t>
+        <emu-t>`</emu-t></ins>
     </emu-rhs>
     <ins><emu-rhs a="knsqbvsc" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints>
         <emu-nt><a href="https://tc39.es/ecma262/#prod-WhiteSpace">WhiteSpace</a></emu-nt>
@@ -2974,7 +3048,7 @@ li.menu-search-result-term:before {
       <ins>
       <emu-clause id="sec-regexp.escape" number="2">
         <h1><span class="secnum">22.2.5.2</span> RegExp.escape ( <var>S</var> )</h1>
-        <p>This method takes a string and returns a version of it with all control characters escaped. It escapes characters that would otherwise be treated by the regular expressions engine as special meta characters using an escape sequence character.</p>
+        <p>This method takes a string and returns a similar string in which each character that is potentially special in a regular expression <emu-nt><a href="https://tc39.es/ecma262/#prod-Pattern">Pattern</a></emu-nt> has been replaced by an escape sequence representing that character.</p>
         <p>It performs the following steps when called:</p>
         <p>
           The phrase "<dfn id="the ASCII punctuators that need escaping" tabindex="-1">the ASCII punctuators that need escaping</dfn>"
