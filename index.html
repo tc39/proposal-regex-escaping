@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.code === 'Escape') {
         sdoBox.deactivate();
       }
-    })
+    }),
   );
 });
 
@@ -99,11 +99,11 @@ function Search(menu) {
 
   this.$searchBox.addEventListener(
     'keydown',
-    debounce(this.searchBoxKeydown.bind(this), { stopPropagation: true })
+    debounce(this.searchBoxKeydown.bind(this), { stopPropagation: true }),
   );
   this.$searchBox.addEventListener(
     'keyup',
-    debounce(this.searchBoxKeyup.bind(this), { stopPropagation: true })
+    debounce(this.searchBoxKeyup.bind(this), { stopPropagation: true }),
   );
 
   // Perform an initial search if the box is not empty.
@@ -303,7 +303,6 @@ Search.prototype.displayResults = function (results) {
       }
 
       if (text) {
-        // prettier-ignore
         html += `<li class=menu-search-result-${cssClass}><a href="${makeLinkToId(id)}">${text}</a></li>`;
       }
     });
@@ -485,7 +484,7 @@ function findActiveClause(root, path) {
     let marginTop = Math.max(
       0,
       parseInt(clauseStyles['margin-top']),
-      parseInt(getComputedStyle($header)['margin-top'])
+      parseInt(getComputedStyle($header)['margin-top']),
     );
     let marginBottom = Math.max(0, parseInt(clauseStyles['margin-bottom']));
     let crossesMidpoint =
@@ -583,7 +582,6 @@ Menu.prototype.addPinEntry = function (id) {
     } else {
       prefix = '';
     }
-    // prettier-ignore
     text = `${prefix}${entry.titleHTML}`;
   } else {
     text = getKey(entry);
@@ -930,7 +928,6 @@ let referencePane = {
       e.parentNode.replaceChild(document.createTextNode(e.textContent), e);
     });
 
-    // prettier-ignore
     this.$headerText.innerHTML = `Syntax-Directed Operations for<br><a href="${makeLinkToId(alternativeId)}" class="menu-pane-header-production"><emu-nt>${parentName}</emu-nt> ${colons.outerHTML} </a>`;
     this.$headerText.querySelector('a').append(rhs);
     this.showSDOsBody(sdos, alternativeId);
@@ -1203,7 +1200,7 @@ function init() {
     'mouseover',
     debounce(e => {
       Toolbox.activateIfMouseOver(e);
-    })
+    }),
   );
   document.addEventListener(
     'keydown',
@@ -1214,7 +1211,7 @@ function init() {
         }
         document.getElementById('shortcuts-help').classList.remove('active');
       }
-    })
+    }),
   );
 }
 
@@ -1369,7 +1366,7 @@ window.addEventListener('beforeunload', () => {
 // https://w3c.github.io/csswg-drafts/css-counter-styles/
 
 const lowerLetters = Array.from({ length: 26 }, (_, i) =>
-  String.fromCharCode('a'.charCodeAt(0) + i)
+  String.fromCharCode('a'.charCodeAt(0) + i),
 );
 // Implement the lower-alpha 'alphabetic' algorithm,
 // adjusting for indexing from 0 rather than 1.
@@ -1440,7 +1437,7 @@ const counterByDepth = [];
 function addStepNumberText(
   ol,
   depth = 0,
-  special = [...ol.classList].some(c => c.startsWith('nested-'))
+  special = [...ol.classList].some(c => c.startsWith('nested-')),
 ) {
   let counter = !special && counterByDepth[depth];
   if (!counter) {
@@ -1557,7 +1554,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let sdoMap = JSON.parse(`{}`);
-let biblio = JSON.parse(`{"refsByClause":{"sec-regexp.escape":["_ref_0"]},"entries":[{"type":"production","id":"prod-HexNonSurrogate","name":"HexNonSurrogate"},{"type":"production","id":"prod-IdentityEscape","name":"IdentityEscape"},{"type":"production","id":"prod-DecimalEscape","name":"DecimalEscape"},{"type":"clause","id":"sec-patterns","titleHTML":"Patterns","number":"22.2.1"},{"type":"term","term":"the ASCII punctuators that need escaping","id":"the ASCII punctuators that need escaping","referencingIds":["_ref_0"]},{"type":"clause","id":"sec-regexp.escape","title":"RegExp.escape ( S )","titleHTML":"RegExp.escape ( <var>S</var> )","number":"22.2.5.2"},{"type":"clause","id":"sec-properties-of-the-regexp-constructor","titleHTML":"Properties of the RegExp Constructor","number":"22.2.5"},{"type":"clause","id":"sec-regexp-regular-expression-objects","titleHTML":"RegExp (Regular Expression) Objects","number":"22.2"},{"type":"clause","id":"sec-text-processing","titleHTML":"Text Processing","number":"22"},{"type":"clause","id":"sec-copyright-and-software-license","title":"Copyright & Software License","titleHTML":"Copyright &amp; Software License","number":"A"}]}`);
+let biblio = JSON.parse(`{"refsByClause":{},"entries":[{"type":"production","id":"prod-HexNonSurrogate","name":"HexNonSurrogate"},{"type":"production","id":"prod-IdentityEscape","name":"IdentityEscape"},{"type":"production","id":"prod-DecimalEscape","name":"DecimalEscape"},{"type":"clause","id":"sec-patterns","titleHTML":"Patterns","number":"22.2.1"},{"type":"clause","id":"sec-regexp.escape","title":"RegExp.escape ( S )","titleHTML":"RegExp.escape ( <var>S</var> )","number":"22.2.5.2"},{"type":"clause","id":"sec-properties-of-the-regexp-constructor","titleHTML":"Properties of the RegExp Constructor","number":"22.2.5"},{"type":"clause","id":"sec-regexp-regular-expression-objects","titleHTML":"RegExp (Regular Expression) Objects","number":"22.2"},{"type":"clause","id":"sec-text-processing","titleHTML":"Text Processing","number":"22"},{"type":"clause","id":"sec-copyright-and-software-license","title":"Copyright & Software License","titleHTML":"Copyright &amp; Software License","number":"A"}]}`);
 ;let usesMultipage = false</script><style>/* IBM Plex fonts (Latin subset) have been downloaded from Google Fonts and modified to add support back in for the `zero` substitution (slashed zeroes) */
 
 /* https://fonts.googleapis.com/css2?family=IBM%20Plex%20Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap */
@@ -1659,7 +1656,9 @@ body {
   word-wrap: break-word;
   font-size: 18px;
   line-height: 1.5;
-  font-family: IBM Plex Serif, serif;
+  font-family:
+    IBM Plex Serif,
+    serif;
   font-variant-numeric: slashed-zero;
   padding: 0;
   margin: 0;
@@ -1668,6 +1667,8 @@ body {
 
 #spec-container {
   padding: 0 20px;
+  max-width: 80rem;
+  margin: 0 auto;
   flex-grow: 1;
   flex-basis: 66%;
   box-sizing: border-box;
@@ -1713,7 +1714,9 @@ span.e-user-code::before {
   line-height: normal;
   vertical-align: middle;
   text-transform: uppercase;
-  font-family: IBM Plex Sans, sans-serif;
+  font-family:
+    IBM Plex Sans,
+    sans-serif;
   font-weight: 900;
   font-size: x-small;
 }
@@ -1736,7 +1739,10 @@ span.e-user-code::before {
 
 code {
   font-weight: bold;
-  font-family: Comic Code, IBM Plex Mono, monospace;
+  font-family:
+    Comic Code,
+    IBM Plex Mono,
+    monospace;
   white-space: pre;
 }
 
@@ -1801,7 +1807,9 @@ var.referenced6 {
 }
 
 emu-const {
-  font-family: IBM Plex Sans, sans-serif;
+  font-family:
+    IBM Plex Sans,
+    sans-serif;
   font-variant: small-caps;
   text-transform: uppercase;
 }
@@ -1870,6 +1878,7 @@ emu-note {
   border-left: 5px solid #52e052;
   background: #e9fbe9;
   padding: 10px 10px 10px 0;
+  overflow-x: auto;
 }
 
 emu-note > span.note {
@@ -2000,7 +2009,9 @@ emu-rhs emu-nt {
 
 emu-t {
   display: inline-block;
-  font-family: IBM Plex Mono, monospace;
+  font-family:
+    IBM Plex Mono,
+    monospace;
   font-weight: bold;
   white-space: nowrap;
   text-indent: 0;
@@ -2035,7 +2046,9 @@ emu-mods {
 emu-params,
 emu-opt {
   margin-right: 1ex;
-  font-family: IBM Plex Mono, monospace;
+  font-family:
+    IBM Plex Mono,
+    monospace;
 }
 
 emu-params,
@@ -2049,7 +2062,9 @@ emu-opt {
 
 emu-gprose {
   font-size: 0.9em;
-  font-family: IBM Plex Sans, sans-serif;
+  font-family:
+    IBM Plex Sans,
+    sans-serif;
 }
 
 emu-production emu-gprose {
@@ -2273,7 +2288,8 @@ emu-annex emu-annex emu-annex emu-annex emu-annex emu-annex {
 /* Figures and tables */
 figure {
   display: block;
-  margin: 1em 0 3em 0;
+  overflow-x: auto;
+  margin: 1.5em 0;
 }
 figure object {
   display: block;
@@ -2336,7 +2352,7 @@ table.lightweight-table th {
     background-color: rgba(249, 241, 172, 1);
   }
   100% {
-    background-color: rgba(249, 241, 172, 0)
+    background-color: rgba(249, 241, 172, 0);
   }
 }
 #spec-container :target:not(emu-annex, emu-clause, emu-intro, emu-note, body) {
@@ -2980,10 +2996,10 @@ li.menu-search-result-term:before {
   <li><span>Jump to search box</span><code>/</code></li>
   <li><span>Toggle pinning of the current clause</span><code>p</code></li>
   <li><span>Jump to <i>n</i>th pin</span><code>1-9</code></li>
-</ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120">
+</ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
       <title>Menu</title>
       <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
-    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-text-processing" title="Text Processing"><span class="secnum">22</span> Text Processing</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp-regular-expression-objects" title="RegExp (Regular Expression) Objects"><span class="secnum">22.2</span> RegExp (Regular Expression) Objects</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-patterns" title="Patterns"><span class="secnum">22.2.1</span> Patterns</a></li><li><span class="item-toggle">+</span><a href="#sec-properties-of-the-regexp-constructor" title="Properties of the RegExp Constructor"><span class="secnum">22.2.5</span> Properties of the RegExp Constructor</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regexp.escape" title="RegExp.escape ( S )"><span class="secnum">22.2.5.2</span> RegExp.escape ( <var>S</var> )</a></li></ol></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 2 Draft / November 27, 2023</h1><h1 class="title">RegExp.escape</h1>
+    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-text-processing" title="Text Processing"><span class="secnum">22</span> Text Processing</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp-regular-expression-objects" title="RegExp (Regular Expression) Objects"><span class="secnum">22.2</span> RegExp (Regular Expression) Objects</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-patterns" title="Patterns"><span class="secnum">22.2.1</span> Patterns</a></li><li><span class="item-toggle">+</span><a href="#sec-properties-of-the-regexp-constructor" title="Properties of the RegExp Constructor"><span class="secnum">22.2.5</span> Properties of the RegExp Constructor</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regexp.escape" title="RegExp.escape ( S )"><span class="secnum">22.2.5.2</span> RegExp.escape ( <var>S</var> )</a></li></ol></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 2 Draft / March 20, 2024</h1><h1 class="title">RegExp.escape</h1>
 
 <emu-clause id="sec-text-processing" number="22">
   <h1><span class="secnum">22</span> Text Processing</h1>
@@ -3050,13 +3066,8 @@ li.menu-search-result-term:before {
         <h1><span class="secnum">22.2.5.2</span> RegExp.escape ( <var>S</var> )</h1>
         <p>This method takes a string and returns a similar string in which each character that is potentially special in a regular expression <emu-nt><a href="https://tc39.es/ecma262/#prod-Pattern">Pattern</a></emu-nt> has been replaced by an escape sequence representing that character.</p>
         <p>It performs the following steps when called:</p>
-        <p>
-          The phrase "<dfn id="the ASCII punctuators that need escaping" tabindex="-1">the ASCII punctuators that need escaping</dfn>"
-          denotes the following String, which consists of every ASCII punctuator except U+005F (LOW LINE):
-          <emu-val>"(){}[]|,.?*+-^$=&lt;&gt;\/#&amp;!%:;@~'"`"</emu-val>.
-        </p>
 
-        <emu-alg><ol><li>Let <var>str</var> be ?&nbsp;<emu-xref aoid="ToString"><a href="https://tc39.es/ecma262/#sec-tostring">ToString</a></emu-xref>(<var>S</var>).</li><li>Let <var>cpList</var> be <emu-xref aoid="StringToCodePoints"><a href="https://tc39.es/ecma262/#sec-stringtocodepoints">StringToCodePoints</a></emu-xref>(<var>str</var>).</li><li>Let <var>toEscape</var> be <emu-xref aoid="StringToCodePoints"><a href="https://tc39.es/ecma262/#sec-stringtocodepoints">StringToCodePoints</a></emu-xref>(<emu-xref href="#the ASCII punctuators that need escaping" id="_ref_0"><a href="#the ASCII punctuators that need escaping">the ASCII punctuators that need escaping</a></emu-xref>).</li><li>Let <var>escapedList</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.es/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>For each code point <var>c</var> in <var>cpList</var>, do<ol><li>If <var>escapedList</var> is empty and <var>c</var> is matched by <emu-nt><a href="https://tc39.es/ecma262/#prod-DecimalDigit">DecimalDigit</a></emu-nt>, then<ol><li>Append code unit U+005C (REVERSE SOLIDUS) to <var>escapedList</var>.</li><li>Append code unit U+0078 (LATIN SMALL LETTER X) to <var>escapedList</var>.</li><li>Append code unit U+0033 (DIGIT THREE) to <var>escapedList</var>.</li></ol></li><li>Else if <var>toEscape</var> contains <var>c</var> or <var>c</var> is matched by <emu-nt><a href="https://tc39.es/ecma262/#prod-WhiteSpace">WhiteSpace</a></emu-nt>, then<ol><li>Append code unit U+005C (REVERSE SOLIDUS) to <var>escapedList</var>.</li></ol></li><li>Append <var>c</var> to <var>escapedList</var>.</li></ol></li><li>Return <emu-xref aoid="CodePointsToString"><a href="https://tc39.es/ecma262/#sec-codepointstostring">CodePointsToString</a></emu-xref>(<var>escapedList</var>).</li></ol></emu-alg>
+        <emu-alg><ol><li>Let <var>str</var> be ?&nbsp;<emu-xref aoid="ToString"><a href="https://tc39.es/ecma262/#sec-tostring">ToString</a></emu-xref>(<var>S</var>).</li><li>Let <var>cpList</var> be <emu-xref aoid="StringToCodePoints"><a href="https://tc39.es/ecma262/#sec-stringtocodepoints">StringToCodePoints</a></emu-xref>(<var>str</var>).</li><li>Let <var>punctuators</var> be the following String, which consists of every ASCII punctuator except U+005F (LOW LINE): <emu-val>"(){}[]|,.?*+-^$=&lt;&gt;\/#&amp;!%:;@~'"`"</emu-val>.</li><li>Let <var>toEscape</var> be <emu-xref aoid="StringToCodePoints"><a href="https://tc39.es/ecma262/#sec-stringtocodepoints">StringToCodePoints</a></emu-xref>(<var>punctuators</var>).</li><li>Let <var>escapedList</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.es/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>For each code point <var>c</var> in <var>cpList</var>, do<ol><li>If <var>escapedList</var> is empty and <var>c</var> is matched by <emu-nt><a href="https://tc39.es/ecma262/#prod-DecimalDigit">DecimalDigit</a></emu-nt>, then<ol><li>Append code unit U+005C (REVERSE SOLIDUS) to <var>escapedList</var>.</li><li>Append code unit U+0078 (LATIN SMALL LETTER X) to <var>escapedList</var>.</li><li>Append code unit U+0033 (DIGIT THREE) to <var>escapedList</var>.</li></ol></li><li>Else if <var>toEscape</var> contains <var>c</var> or <var>c</var> is matched by <emu-nt><a href="https://tc39.es/ecma262/#prod-WhiteSpace">WhiteSpace</a></emu-nt>, then<ol><li>Append code unit U+005C (REVERSE SOLIDUS) to <var>escapedList</var>.</li></ol></li><li>Append <var>c</var> to <var>escapedList</var>.</li></ol></li><li>Return <emu-xref aoid="CodePointsToString"><a href="https://tc39.es/ecma262/#sec-codepointstostring">CodePointsToString</a></emu-xref>(<var>escapedList</var>).</li></ol></emu-alg>
 
         <emu-note><span class="note">Note</span><div class="note-contents">
           <p><code>escape</code> takes a string and escapes it so it can be literally represented as a pattern. In contrast <emu-xref aoid="EscapeRegExpPattern"><a href="https://tc39.es/ecma262/#sec-escaperegexppattern">EscapeRegExpPattern</a></emu-xref> (as the name implies) takes a pattern and escapes it so that it can be represented as a string. While the two are related, they do not share the same character escape set or perform similar actions.</p>
@@ -3069,7 +3080,7 @@ li.menu-search-result-term:before {
       <h1><span class="secnum">A</span> Copyright &amp; Software License</h1>
       
       <h2>Copyright Notice</h2>
-      <p>© 2023 Jordan Harband</p>
+      <p>© 2024 Jordan Harband</p>
 
       <h2>Software License</h2>
       <p>All Software contained in this document ("Software") is protected by copyright and is being made available under the "BSD License", included below. This Software may be subject to third party rights (rights from parties other than Ecma International), including patent rights, and no licenses under such third party rights are granted under this license even if the third party concerned is a member of Ecma International. SEE THE ECMA CODE OF CONDUCT IN PATENT MATTERS AVAILABLE AT <a href="https://ecma-international.org/memento/codeofconduct.htm">https://ecma-international.org/memento/codeofconduct.htm</a> FOR INFORMATION REGARDING THE LICENSING OF PATENT CLAIMS THAT ARE REQUIRED TO IMPLEMENT ECMA INTERNATIONAL STANDARDS.</p>
