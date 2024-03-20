@@ -43,16 +43,12 @@ contributors: Jordan Harband
         <h1>RegExp.escape ( _S_ )</h1>
         <p>This method takes a string and returns a similar string in which each character that is potentially special in a regular expression |Pattern| has been replaced by an escape sequence representing that character.</p>
         <p>It performs the following steps when called:</p>
-        <p>
-          The phrase "<dfn id="the ASCII punctuators that need escaping">the ASCII punctuators that need escaping</dfn>"
-          denotes the following String, which consists of every ASCII punctuator except U+005F (LOW LINE):
-          *"(){}[]|,.?\*+-^$=<>\/#&!%:;@~'"`"*.
-        </p>
 
         <emu-alg>
           1. Let _str_ be ? ToString(_S_).
           1. Let _cpList_ be StringToCodePoints(_str_).
-          1. Let _toEscape_ be StringToCodePoints(the ASCII punctuators that need escaping).
+          1. Let _punctuators_ be the following String, which consists of every ASCII punctuator except U+005F (LOW LINE): *"(){}[]|,.?\*+-^$=<>\/#&!%:;@~'"`"*.
+          1. Let _toEscape_ be StringToCodePoints(_punctuators_).
           1. Let _escapedList_ be a new empty List.
           1. For each code point _c_ in _cpList_, do
             1. If _escapedList_ is empty and _c_ is matched by |DecimalDigit|, then
