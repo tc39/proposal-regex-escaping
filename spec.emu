@@ -15,26 +15,6 @@ contributors: Jordan Harband
   <emu-clause id="sec-regexp-regular-expression-objects" number="2">
     <h1>RegExp (Regular Expression) Objects</h1>
 
-    <emu-clause id="sec-patterns" number="1">
-      <h1>Patterns</h1>
-
-      <h2>Syntax</h2>
-      <p>Each `\\u` |HexTrailSurrogate| for which the choice of associated `u` |HexLeadSurrogate| is ambiguous shall be associated with the nearest possible `u` |HexLeadSurrogate| that would otherwise have no corresponding `\\u` |HexTrailSurrogate|.</p>
-      <emu-grammar type="definition">
-        HexNonSurrogate ::
-          Hex4Digits [> but only if the MV of |Hex4Digits| is not in the inclusive interval from 0xD800 to 0xDFFF]
-
-        IdentityEscape[UnicodeMode] ::
-          [+UnicodeMode] SyntaxCharacter
-          [+UnicodeMode] `/` <ins>`,` `-` `=` `<` `>` `#` `&` `!` `%` `:` `;` `@` `~` `'` `"` `\``</ins>
-          <ins>[+UnicodeMode] WhiteSpace</ins>
-          [~UnicodeMode] SourceCharacter but not UnicodeIDContinue
-
-        DecimalEscape ::
-          NonZeroDigit DecimalDigits[~Sep]? [lookahead &notin; DecimalDigit]
-      </emu-grammar>
-    </emu-clause>
-
     <emu-clause id="sec-properties-of-the-regexp-constructor" number="5">
       <h1>Properties of the RegExp Constructor</h1>
 
@@ -47,23 +27,58 @@ contributors: Jordan Harband
         <emu-alg>
           1. Let _str_ be ? ToString(_S_).
           1. Let _cpList_ be StringToCodePoints(_str_).
-          1. Let _punctuators_ be the following String, which consists of every ASCII punctuator except U+005F (LOW LINE): *"(){}[]|,.?\*+-^$=<>\/#&!%:;@~'"`"*.
-          1. Let _toEscape_ be StringToCodePoints(_punctuators_).
           1. Let _escapedList_ be a new empty List.
           1. For each code point _c_ in _cpList_, do
             1. If _escapedList_ is empty and _c_ is matched by |DecimalDigit|, then
-              1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
-              1. Append code unit U+0078 (LATIN SMALL LETTER X) to _escapedList_.
-              1. Append code unit U+0033 (DIGIT THREE) to _escapedList_.
-            1. Else if _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
-              1. Append code unit U+005C (REVERSE SOLIDUS) to _escapedList_.
-            1. Append _c_ to _escapedList_.
+              1. Append the code point U+005C (REVERSE SOLIDUS) to _escapedList_.
+              1. Append the code point U+0078 (LATIN SMALL LETTER X) to _escapedList_.
+              1. Append the code point U+0033 (DIGIT THREE) to _escapedList_.
+              1. Append _c_ to _escapedList_.
+            1. Else,
+              1. Append the code points in EncodeForRegExpEscape(_c_) to _escapedList_.
           1. Return CodePointsToString(_escapedList_).
         </emu-alg>
 
         <emu-note>
           <p>`escape` takes a string and escapes it so it can be literally represented as a pattern. In contrast EscapeRegExpPattern (as the name implies) takes a pattern and escapes it so that it can be represented as a string. While the two are related, they do not share the same character escape set or perform similar actions.</p>
         </emu-note>
+      </emu-clause>
+
+      <emu-clause id="sec-encode" type="abstract operation">
+        <h1>
+          EncodeForRegExpEscape (
+            _c_: a code point,
+          ): a List of code points
+        </h1>
+        <dl class="header">
+          <dt>description</dt>
+          <dd>If _c_ represents a RegExp punctuator that needs escaping, or ASCII whitespace, it produces the code points for *"\x"* followed by the relevant escape code. If _c_ represents non-ASCII white space, it produces the code points for *"\u"* followed by the relevant escape code. Otherwise, it returns a List containing _c_.</dd>
+        </dl>
+
+        <emu-alg>
+          1. Let _codePoints_ be a new empty List.
+          1. Let _punctuators_ be the following String, which consists of every ASCII punctuator except U+005F (LOW LINE): *"(){}[]|,.?\*+-^$=<>\/#&!%:;@~'"`"*.
+          1. Let _toEscape_ be StringToCodePoints(_punctuators_).
+          1. If _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
+            1. Append the code point U+005C (REVERSE SOLIDUS) to _codePoints_.
+            1. Let _hex_ be Number::toString(𝔽(_c_), 16).
+            1. If the length of _hex_ is 1 or 2, then
+              1. Set _hex_ to StringPad(_hex_, 2, *"0"*, ~start~).
+              1. Append the code point U+0078 (LATIN SMALL LETTER X) to _codePoints_.
+              1. Append the code points in StringToCodePoints(_hex_) to _codePoints_.
+            1. Else if the length of _hex_ is 3 or 4, then
+              1. Set _hex_ to StringPad(_hex_, 4, *"0"*, ~start~).
+              1. Append the code point U+0075 (LATIN SMALL LETTER U) to _codePoints_.
+              1. Append the code points in StringToCodePoints(_hex_) to _codePoints_.
+            1. Else,
+              1. Append the code point U+0075 (LATIN SMALL LETTER U) to _codePoints_.
+              1. Append the code point U+007B (LEFT CURLY BRACKET) to _codePoints_.
+              1. Append the code points in StringToCodePoints(_hex_) to _codePoints_.
+              1. Append the code point U+007D (RIGHT CURLY BRACKET) to _codePoints_.
+          1. Else,
+            1. Append _c_ to _codePoints_.
+          1. Return _codePoints_.
+        </emu-alg>
       </emu-clause>
       </ins>
     </emu-clause>
