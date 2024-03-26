@@ -25,8 +25,8 @@ contributors: Jordan Harband
         <p>It performs the following steps when called:</p>
 
         <emu-alg>
-          1. Let _str_ be ? ToString(_S_).
-          1. Let _cpList_ be StringToCodePoints(_str_).
+          1. If _S_ is not a String, throw a TypeError exception.
+          1. Let _cpList_ be StringToCodePoints(_S_).
           1. Let _escapedList_ be a new empty List.
           1. For each code point _c_ in _cpList_, do
             1. If _escapedList_ is empty and _c_ is matched by |DecimalDigit|, then
