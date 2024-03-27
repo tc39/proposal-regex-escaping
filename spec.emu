@@ -40,7 +40,7 @@ contributors: Jordan Harband
         </emu-alg>
 
         <emu-note>
-          <p>`escape` takes a string and escapes it so it can be literally represented as a pattern. In contrast EscapeRegExpPattern (as the name implies) takes a pattern and escapes it so that it can be represented as a string. While the two are related, they do not share the same character escape set or perform similar actions.</p>
+          <p>Despite having similar names, EscapeRegExpPattern and `RegExp.escape` do not perform similar actions. The former escapes a pattern for representation as a string, while this function escapes a string for representation inside a pattern.</p>
         </emu-note>
       </emu-clause>
 
