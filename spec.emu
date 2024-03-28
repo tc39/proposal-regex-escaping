@@ -26,17 +26,14 @@ contributors: Jordan Harband
 
         <emu-alg>
           1. If _S_ is not a String, throw a TypeError exception.
+          1. Let _escaped_ be the empty String.
           1. Let _cpList_ be StringToCodePoints(_S_).
-          1. Let _escapedList_ be a new empty List.
           1. For each code point _c_ in _cpList_, do
-            1. If _escapedList_ is empty and _c_ is matched by |DecimalDigit|, then
-              1. Append the code point U+005C (REVERSE SOLIDUS) to _escapedList_.
-              1. Append the code point U+0078 (LATIN SMALL LETTER X) to _escapedList_.
-              1. Append the code point U+0033 (DIGIT THREE) to _escapedList_.
-              1. Append _c_ to _escapedList_.
+            1. If _escaped_ is the empty String and _c_ is matched by |DecimalDigit|, then
+              1. Set _escaped_ to the string-concatenation of _escaped_, the code unit 0x005C (REVERSE SOLIDUS), *"x3"*, and the code unit whose numeric value is the numeric value of _c_.
             1. Else,
-              1. Append the code points in EncodeForRegExpEscape(_c_) to _escapedList_.
-          1. Return CodePointsToString(_escapedList_).
+              1. Set _escaped_ to the string-concatenation of _escaped_ and EncodeForRegExpEscape(_c_).
+          1. Return _escaped_.
         </emu-alg>
 
         <emu-note>
@@ -48,31 +45,26 @@ contributors: Jordan Harband
         <h1>
           EncodeForRegExpEscape (
             _c_: a code point,
-          ): a List of code points
+          ): a String
         </h1>
         <dl class="header">
           <dt>description</dt>
-          <dd>If _c_ represents a RegExp punctuator that needs escaping, or ASCII whitespace, it produces the code points for *"\x"* followed by the relevant escape code. If _c_ represents non-ASCII white space, it produces the code points for *"\u"* followed by the relevant escape code. Otherwise, it returns a List containing _c_.</dd>
+          <dd>It returns a string representing a |Pattern| for matching _c_. If _c_ is white space or an ASCII punctuator, the returned value is an escape sequence (corresponding with |HexEscapeSequence| if possible, or otherwise with |RegExpUnicodeEscapeSequence|). Otherwise, the returned value is a string representation of _c_ itself.</dd>
         </dl>
 
         <emu-alg>
-          1. Let _codePoints_ be a new empty List.
           1. Let _punctuators_ be the string-concatenation of *"(){}[]|,.?\*+-^$=<>/#&!%:;@~'`"*, the code unit 0x0022 (QUOTATION MARK), and the code unit 0x005C (REVERSE SOLIDUS).
           1. Let _toEscape_ be StringToCodePoints(_punctuators_).
           1. If _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
             1. If _c_ ≤ 0xFF, then
-              1. Append the code point U+005C (REVERSE SOLIDUS) to _codePoints_.
-              1. Append the code point U+0078 (LATIN SMALL LETTER X) to _codePoints_.
               1. Let _hex_ be Number::toString(𝔽(_c_), 16).
-              1. Set _hex_ to StringPad(_hex_, 2, *"0"*, ~start~).
-              1. Append the code points in StringToCodePoints(_hex_) to _codePoints_.
+              1. Return the string-concatenation of the code unit 0x005C (REVERSE SOLIDUS), *"x"*, and StringPad(_hex_, 2, *"0"*, ~start~).
+            1. Let _escaped_ be the empty String.
             1. Let _codeUnits_ be UTF16EncodeCodePoint(_c_).
             1. For each code unit _cu_ of _codeUnits_, do
-              1. Let _escape_ be UnicodeEscape(_cu_).
-              1. Append the code points in StringToCodePoints(_escape_) to _codePoints_.
-          1. Else,
-            1. Append _c_ to _codePoints_.
-          1. Return _codePoints_.
+              1. Set _escaped_ to the string-concatenation of _escaped_ and UnicodeEscape(_cu_).
+            1. Return _escaped_.
+          1. Return UTF16EncodeCodePoint(_c_).
         </emu-alg>
       </emu-clause>
       </ins>
