@@ -57,7 +57,7 @@ contributors: Jordan Harband
 
         <emu-alg>
           1. Let _codePoints_ be a new empty List.
-          1. Let _punctuators_ be the string-concatenation of *"(){}[]|,.?*+-^$=<>/#&!%:;@~'`"*, the code unit 0x0022 (QUOTATION MARK), and the code unit 0x005C (REVERSE SOLIDUS).
+          1. Let _punctuators_ be the string-concatenation of *"(){}[]|,.?\*+-^$=<>/#&!%:;@~'`"*, the code unit 0x0022 (QUOTATION MARK), and the code unit 0x005C (REVERSE SOLIDUS).
           1. Let _toEscape_ be StringToCodePoints(_punctuators_).
           1. If _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
             1. Append the code point U+005C (REVERSE SOLIDUS) to _codePoints_.
