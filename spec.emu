@@ -60,21 +60,16 @@ contributors: Jordan Harband
           1. Let _punctuators_ be the string-concatenation of *"(){}[]|,.?\*+-^$=<>/#&!%:;@~'`"*, the code unit 0x0022 (QUOTATION MARK), and the code unit 0x005C (REVERSE SOLIDUS).
           1. Let _toEscape_ be StringToCodePoints(_punctuators_).
           1. If _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
-            1. Append the code point U+005C (REVERSE SOLIDUS) to _codePoints_.
-            1. Let _hex_ be Number::toString(𝔽(_c_), 16).
-            1. If the length of _hex_ is 1 or 2, then
-              1. Set _hex_ to StringPad(_hex_, 2, *"0"*, ~start~).
+            1. If _c_ ≤ 0xFF, then
+              1. Append the code point U+005C (REVERSE SOLIDUS) to _codePoints_.
               1. Append the code point U+0078 (LATIN SMALL LETTER X) to _codePoints_.
+              1. Let _hex_ be Number::toString(𝔽(_c_), 16).
+              1. Set _hex_ to StringPad(_hex_, 2, *"0"*, ~start~).
               1. Append the code points in StringToCodePoints(_hex_) to _codePoints_.
-            1. Else if the length of _hex_ is 3 or 4, then
-              1. Set _hex_ to StringPad(_hex_, 4, *"0"*, ~start~).
-              1. Append the code point U+0075 (LATIN SMALL LETTER U) to _codePoints_.
-              1. Append the code points in StringToCodePoints(_hex_) to _codePoints_.
-            1. Else,
-              1. Append the code point U+0075 (LATIN SMALL LETTER U) to _codePoints_.
-              1. Append the code point U+007B (LEFT CURLY BRACKET) to _codePoints_.
-              1. Append the code points in StringToCodePoints(_hex_) to _codePoints_.
-              1. Append the code point U+007D (RIGHT CURLY BRACKET) to _codePoints_.
+            1. Let _codeUnits_ be UTF16EncodeCodePoint(_c_).
+            1. For each code unit _cu_ of _codeUnits_, do
+              1. Let _escape_ be UnicodeEscape(_cu_).
+              1. Append the code points in StringToCodePoints(_escape_) to _codePoints_.
           1. Else,
             1. Append _c_ to _codePoints_.
           1. Return _codePoints_.
