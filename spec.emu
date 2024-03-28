@@ -21,7 +21,7 @@ contributors: Jordan Harband
       <ins>
       <emu-clause id="sec-regexp.escape" number="2">
         <h1>RegExp.escape ( _S_ )</h1>
-        <p>This method takes a string and returns a similar string in which each character that is potentially special in a regular expression |Pattern| has been replaced by an escape sequence representing that character.</p>
+        <p>This function returns a copy of _S_ in which characters that are potentially special in a regular expression |Pattern| have been replaced by equivalent escape sequences.</p>
         <p>It performs the following steps when called:</p>
 
         <emu-alg>
