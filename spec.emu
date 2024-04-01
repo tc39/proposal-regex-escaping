@@ -30,6 +30,7 @@ contributors: Jordan Harband
           1. Let _cpList_ be StringToCodePoints(_S_).
           1. For each code point _c_ in _cpList_, do
             1. If _escaped_ is the empty String and _c_ is matched by |DecimalDigit|, then
+              1. NOTE: Escaping a leading digit ensures that output corresponds with pattern text which may be used after a `\0` character escape or a |DecimalEscape| such as `\1` and still match _S_ rather than be interpreted as an extension of the preceding escape sequence.
               1. Set _escaped_ to the string-concatenation of _escaped_, the code unit 0x005C (REVERSE SOLIDUS), *"x3"*, and the code unit whose numeric value is the numeric value of _c_.
             1. Else,
               1. Set _escaped_ to the string-concatenation of _escaped_ and EncodeForRegExpEscape(_c_).
