@@ -6,7 +6,9 @@
 <pre class="metadata">
 title: RegExp.escape
 stage: 2
-contributors: Jordan Harband
+contributors:
+  - Jordan Harband
+  - Kevin Gibbons
 </pre>
 
 <emu-clause id="sec-text-processing" number="22">

@@ -2,9 +2,11 @@
 
 This ECMAScript proposal seeks to investigate the problem area of escaping a string for use inside a Regular Expression.
 
-<!--
-[Formal specification](http://tc39.github.io/proposal-regex-escaping)
--->
+[Formal specification](https://tc39.es/proposal-regex-escaping)
+
+Champions:
+ - [@ljharb](https://github.com/ljharb)
+ - [@bakkot](https://github.com/bakkot)
 
 ## Status
 
