@@ -52,12 +52,14 @@ contributors:
         </h1>
         <dl class="header">
           <dt>description</dt>
-          <dd>It returns a string representing a |Pattern| for matching _c_. If _c_ is white space or an ASCII punctuator, the returned value is an escape sequence (corresponding with |HexEscapeSequence| if possible, or otherwise with |RegExpUnicodeEscapeSequence|). Otherwise, the returned value is a string representation of _c_ itself.</dd>
+          <dd>It returns a string representing a |Pattern| for matching _c_. If _c_ is white space or an ASCII punctuator, the returned value is an escape sequence. Otherwise, the returned value is a string representation of _c_ itself.</dd>
         </dl>
 
         <emu-alg>
-          1. Let _punctuators_ be the string-concatenation of *"(){}[]|,.?\*+-^$=<>/#&!%:;@~'`"*, the code unit 0x0022 (QUOTATION MARK), and the code unit 0x005C (REVERSE SOLIDUS).
-          1. Let _toEscape_ be StringToCodePoints(_punctuators_).
+          1. If _c_ is matched by |SyntaxCharacter| or _c_ is U+002F (SOLIDUS), then
+            1. Return the string-concatenation of 0x005C (REVERSE SOLIDUS) and UTF16EncodeCodePoint(_c_).
+          1. Let _otherPunctuators_ be the string-concatenation of *",-=<>#&!%:;@~'`"* and the code unit 0x0022 (QUOTATION MARK).
+          1. Let _toEscape_ be StringToCodePoints(_otherPunctuators_).
           1. If _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace|, then
             1. If _c_ ≤ 0xFF, then
               1. Let _hex_ be Number::toString(𝔽(_c_), 16).
