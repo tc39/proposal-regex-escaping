@@ -58,6 +58,8 @@ contributors:
         <emu-alg>
           1. If _c_ is matched by |SyntaxCharacter| or _c_ is U+002F (SOLIDUS), then
             1. Return the string-concatenation of 0x005C (REVERSE SOLIDUS) and UTF16EncodeCodePoint(_c_).
+          1. Else if _c_ is the code point listed in some cell of the “Code Point” column of <emu-xref href="#table-controlescape-code-point-values"></emu-xref>, then
+            1. Return the string-concatenation of 0x005C (REVERSE SOLIDUS) and the string in the “ControlEscape” column of the row whose “Code Point” column contains _c_.
           1. Let _otherPunctuators_ be the string-concatenation of *",-=<>#&!%:;@~'`"* and the code unit 0x0022 (QUOTATION MARK).
           1. Let _toEscape_ be StringToCodePoints(_otherPunctuators_).
           1. If _toEscape_ contains _c_ or _c_ is matched by |WhiteSpace| or |LineTerminator|, then
