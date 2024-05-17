@@ -33,7 +33,8 @@ contributors:
           1. For each code point _c_ in _cpList_, do
             1. If _escaped_ is the empty String, and _c_ is matched by |DecimalDigit| or |AsciiLetter|, then
               1. NOTE: Escaping a leading digit ensures that output corresponds with pattern text which may be used after a `\0` character escape or a |DecimalEscape| such as `\1` and still match _S_ rather than be interpreted as an extension of the preceding escape sequence. Escaping a leading ASCII letter does the same for the context after `\c`.
-              1. Let _hex_ be Number::toString(𝔽(_c_), 16).
+              1. Let _numericValue_ be the numeric value of _c_.
+              1. Let _hex_ be Number::toString(𝔽(_numericValue_), 16).
               1. Assert: The length of _hex_ is 2.
               1. Set _escaped_ to the string-concatenation of the code unit 0x005C (REVERSE SOLIDUS), *"x"*, and _hex_.
             1. Else,
