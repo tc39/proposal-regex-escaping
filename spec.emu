@@ -65,7 +65,7 @@ contributors:
             1. Return the string-concatenation of 0x005C (REVERSE SOLIDUS) and the string in the “ControlEscape” column of the row whose “Code Point” column contains _c_.
           1. Let _otherPunctuators_ be the string-concatenation of *",-=<>#&!%:;@~'`"* and the code unit 0x0022 (QUOTATION MARK).
           1. Let _toEscape_ be StringToCodePoints(_otherPunctuators_).
-          1. If _toEscape_ contains _c_, _c_ is matched by |WhiteSpace| or |LineTerminator|, or _c_ has the same numeric value as a leading surrogate or trailing surrogate, then
+          1. If _toEscape_ contains _c_, or _c_ is matched by |WhiteSpace| or |LineTerminator|, or _c_ has the same numeric value as a leading surrogate or trailing surrogate, then
             1. If _c_ ≤ 0xFF, then
               1. Let _hex_ be Number::toString(𝔽(_c_), 16).
               1. Return the string-concatenation of the code unit 0x005C (REVERSE SOLIDUS), *"x"*, and StringPad(_hex_, 2, *"0"*, ~start~).
