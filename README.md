@@ -10,7 +10,7 @@ Champions:
 
 ## Status
 
-This proposal is a [stage 2 proposal](https://github.com/tc39/proposals) and is awaiting implementation and more input. Please see [the issues](https://github.com/tc39/proposal-regex-escaping/issues) to get involved.
+This proposal is a [stage 3 proposal](https://github.com/tc39/proposals) and is awaiting implementation and more input. Please see [the issues](https://github.com/tc39/proposal-regex-escaping/issues) to get involved.
 
 
 ## Motivation

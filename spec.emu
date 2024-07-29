@@ -5,7 +5,7 @@
 <script src="./spec.js"></script>
 <pre class="metadata">
 title: RegExp.escape
-stage: 2
+stage: 3
 contributors:
   - Jordan Harband
   - Kevin Gibbons
