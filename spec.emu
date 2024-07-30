@@ -47,7 +47,7 @@ contributors:
         </emu-note>
       </emu-clause>
 
-      <emu-clause id="sec-encode" type="abstract operation">
+      <emu-clause id="sec-encodeforregexpescape" type="abstract operation">
         <h1>
           EncodeForRegExpEscape (
             _c_: a code point,
