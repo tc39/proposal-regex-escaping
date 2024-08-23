@@ -105,3 +105,8 @@ We've had [a meeting about this subject](https://github.com/benjamingr/RegExp.es
 *   **Why don't you do X?**
 
     If you believe there is a concern that was not addressed yet, please [open an issue](https://github.com/tc39/RexExp.escape/issues).
+
+## Polyfills
+
+ - es-shims: [`regexp.escape`](https://www.npmjs.com/package/regexp.escape)
+ - [core-js](https://www.npmjs.com/package/core-js)
