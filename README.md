@@ -110,3 +110,4 @@ We've had [a meeting about this subject](https://github.com/benjamingr/RegExp.es
 
  - es-shims: [`regexp.escape`](https://www.npmjs.com/package/regexp.escape)
  - [core-js](https://www.npmjs.com/package/core-js)
+ - [`@li/regexp-escape-polyfill`](https://jsr.io/@li/regexp-escape-polyfill)
