@@ -1454,6 +1454,7 @@ const counterByDepth = [];
 function addStepNumberText(
   ol,
   depth = 0,
+  indent = '',
   special = [...ol.classList].some(c => c.startsWith('nested-')),
 ) {
   let counter = !special && counterByDepth[depth];
@@ -1477,8 +1478,11 @@ function addStepNumberText(
   let i = (Number(ol.getAttribute('start')) || 1) - 1;
   for (const li of ol.children) {
     const marker = document.createElement('span');
-    marker.textContent = `${i < cache.length ? cache[i] : getTextForIndex(i)}. `;
+    const markerText = i < cache.length ? cache[i] : getTextForIndex(i);
+    const extraIndent = ' '.repeat(markerText.length + 2);
+    marker.textContent = `${indent}${markerText}. `;
     marker.setAttribute('aria-hidden', 'true');
+    marker.setAttribute('class', 'list-marker');
     const attributesContainer = li.querySelector('.attributes-tag');
     if (attributesContainer == null) {
       li.prepend(marker);
@@ -1486,7 +1490,7 @@ function addStepNumberText(
       attributesContainer.insertAdjacentElement('afterend', marker);
     }
     for (const sublist of li.querySelectorAll(':scope > ol')) {
-      addStepNumberText(sublist, depth + 1, special);
+      addStepNumberText(sublist, depth + 1, indent + extraIndent, special);
     }
     i++;
   }
@@ -1496,6 +1500,52 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('emu-alg > ol').forEach(ol => {
     addStepNumberText(ol);
   });
+});
+
+// Omit indendation when copying a single algorithm step.
+document.addEventListener('copy', evt => {
+  // Construct a DOM from the selection.
+  const doc = document.implementation.createHTMLDocument('');
+  const domRoot = doc.createElement('div');
+  const html = evt.clipboardData.getData('text/html');
+  if (html) {
+    domRoot.innerHTML = html;
+  } else {
+    const selection = getSelection();
+    const singleRange = selection?.rangeCount === 1 && selection.getRangeAt(0);
+    const container = singleRange?.commonAncestorContainer;
+    if (!container?.querySelector?.('.list-marker')) {
+      return;
+    }
+    domRoot.append(singleRange.cloneContents());
+  }
+
+  // Preserve the indentation if there is no hidden list marker, or if selection
+  // of more than one step is indicated by either multiple such markers or by
+  // visible text before the first one.
+  const listMarkers = domRoot.querySelectorAll('.list-marker');
+  if (listMarkers.length !== 1) {
+    return;
+  }
+  const treeWalker = document.createTreeWalker(domRoot, undefined, {
+    acceptNode(node) {
+      return node.nodeType === Node.TEXT_NODE || node === listMarkers[0]
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_SKIP;
+    },
+  });
+  while (treeWalker.nextNode()) {
+    const node = treeWalker.currentNode;
+    if (node.nodeType === Node.ELEMENT_NODE) break;
+    if (/\S/u.test(node.data)) return;
+  }
+
+  // Strip leading indentation from the plain text representation.
+  evt.clipboardData.setData('text/plain', domRoot.textContent.trimStart());
+  if (!html) {
+    evt.clipboardData.setData('text/html', domRoot.innerHTML);
+  }
+  evt.preventDefault();
 });
 
 'use strict';
@@ -1699,6 +1749,7 @@ body.oldtoc {
 
 span[aria-hidden='true'] {
   font-size: 0;
+  white-space: pre;
 }
 
 a {
@@ -1795,6 +1846,10 @@ var {
 var.field {
   font: inherit;
   color: inherit;
+}
+/* suppress line break opportunities between `.` and `[[FieldName]]` */
+var.field::before {
+  content: '\2060'
 }
 
 var.referenced {
@@ -3243,7 +3298,7 @@ emu-intro {
 </ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
       <title>Menu</title>
       <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
-    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-text-processing" title="Text Processing"><span class="secnum">22</span> Text Processing</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp-regular-expression-objects" title="RegExp (Regular Expression) Objects"><span class="secnum">22.2</span> RegExp (Regular Expression) Objects</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-properties-of-the-regexp-constructor" title="Properties of the RegExp Constructor"><span class="secnum">22.2.5</span> Properties of the RegExp Constructor</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp.escape" title="RegExp.escape ( S )"><span class="secnum">22.2.5.1</span> RegExp.escape ( <var>S</var> )</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-encodeforregexpescape" title="EncodeForRegExpEscape ( c )"><span class="secnum">22.2.5.1.1</span> EncodeForRegExpEscape ( <var>c</var> )</a></li></ol></li></ol></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 3 Draft / August 28, 2024</h1><h1 class="title">RegExp.escape</h1>
+    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-text-processing" title="Text Processing"><span class="secnum">22</span> Text Processing</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp-regular-expression-objects" title="RegExp (Regular Expression) Objects"><span class="secnum">22.2</span> RegExp (Regular Expression) Objects</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-properties-of-the-regexp-constructor" title="Properties of the RegExp Constructor"><span class="secnum">22.2.5</span> Properties of the RegExp Constructor</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec-regexp.escape" title="RegExp.escape ( S )"><span class="secnum">22.2.5.1</span> RegExp.escape ( <var>S</var> )</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-encodeforregexpescape" title="EncodeForRegExpEscape ( c )"><span class="secnum">22.2.5.1.1</span> EncodeForRegExpEscape ( <var>c</var> )</a></li></ol></li></ol></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 3 Draft / September 6, 2024</h1><h1 class="title">RegExp.escape</h1>
 
 <emu-clause id="sec-text-processing" number="22">
   <h1><span class="secnum">22</span> Text Processing</h1>
