@@ -35,12 +35,12 @@ console.log(ourLongText.replace(re));
 
 Note the double backslashes in the example string contents, which render as a single backslash.
 ```js
-RegExp.escape("The Quick Brown Fox"); // "The\\ Quick\\ Brown\\ Fox"
-RegExp.escape("Buy it. use it. break it. fix it.") // "Buy\\ it\\.\\ use it\\.\\ break\\ it\\.\\ fix\\ it\\."
+RegExp.escape("The Quick Brown Fox"); // "\\x54he\\x20Quick\\x20Brown\\x20Fox"
+RegExp.escape("Buy it. use it. break it. fix it.") // "\\x42uy\\x20it\\.\\x20use\\x20it\\.\\x20break\\x20it\\.\\x20fix\\x20it\\."
 RegExp.escape("(*.*)"); // "\\(\\*\\.\\*\\)"
 RegExp.escape("｡^･ｪ･^｡") // "｡\\^･ｪ･\\^｡"
-RegExp.escape("😊 *_* +_+ ... 👍"); // "😊\\ \\*_\\*\\ \\+_\\+\\ \\.\\.\\.\\ 👍"
-RegExp.escape("\\d \\D (?:)"); // "\\\\d \\\\D \\(\\?\\:\\)"
+RegExp.escape("😊 *_* +_+ ... 👍"); // "😊\\x20\\*_\\*\\x20\\+_\\+\\x20\\.\\.\\.\\x20👍"
+RegExp.escape("\\d \\D (?:)"); // "\\\\d\\x20\\\\D\\x20\\(\\?\\x3a\\)"
 ```
 
 ## Cross-cutting concerns
